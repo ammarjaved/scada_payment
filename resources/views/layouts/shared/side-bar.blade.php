@@ -129,6 +129,16 @@
                     </li>
                 </ul>
 
+                <ul>
+                    <li class="nav-item">
+                        <a href="{{ route('paymentviewdetail.Paymentview') }}" class="nav-link">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>Pending Payments</p>
+                        </a>
+                    </li>
+                </ul>
+                
+
 
                 @endif
 

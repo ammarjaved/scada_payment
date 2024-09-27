@@ -31,6 +31,15 @@ class RmuPaymentDetailController extends Controller
         //
     }
 
+    public function Paymentview()
+    {
+        $data = RmuPaymentDetailModel::where('status', 'work done but not payed')->get();
+
+        
+        return view('payment', compact('data'));
+    }
+    
+
     /**
      * Show the form for creating a new resource.
      *
