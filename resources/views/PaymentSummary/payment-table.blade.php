@@ -38,9 +38,15 @@
                                 {{ $data->pmt_type }}
                             </option>
                             <option value="claim">Claim</option>
-                            <option value="salary">Salary</option>
-                            <option value="tools">Tools</option>
-                            <option value="others">Others</option>
+                                            <option value="salary">Salary</option>
+                                            <option value="tools">Tools</option>
+                                            <option value="cable">Cable</option>
+                                            <option value="rtu_cable">RTU Cable</option>
+                                            <option value="store_rental">Store Rental</option>
+                                            <option value="ARAZ">ARAZ</option>
+                                            <option value="TRANDUCER">TRANDUCER</option>
+                                            <option value="consultation_fee">consultation_fee</option>
+                                         <option value="others">Others</option>
                         </select>
                     </td>
                     <td class="align-middle"> <input type="number" name="pmt_amount"

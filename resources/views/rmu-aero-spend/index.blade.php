@@ -32,7 +32,7 @@
                                             <th>TRANSPORT</th>
                                             <th>TOTAL OUTSTANDING</th>
                                             <th>TOTAL SPENDINGS</th>
-                                            <th>PROFIT</th>
+                                            <!-- <th>PROFIT</th> -->
                                             <th>ACTION</th>
                                         </tr>
                                     </thead>
@@ -53,7 +53,7 @@
                                             <td class="text-center {{str_replace(' ', '_' , $data->amt_transport_status )}}">{{$data->amt_transport ?? 0 }}</td>
                                             <td class="text-center">{{ $data->outstanding_balance ?? 0}}</td>
                                             <td class="text-center {{str_replace(' ', '_' , $data->total_status )}}">{{ $data->total ?? 0 }}</td>
-                                            <td class="text-center">{{ $data->profit}}</td>
+                                            {{--<!-- <td class="text-center">{{ $data->profit}}</td> -->--}}
 
 
 

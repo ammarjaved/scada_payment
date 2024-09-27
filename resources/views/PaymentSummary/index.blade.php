@@ -119,10 +119,10 @@
 
                                     <thead style="background-color: #E4E3E3 !important">
                                         <tr>
-                                            <th>TOTAL RECEVIED</th>
-                                            <th>TOTAL SPEND PE</th>
-                                            <th>TOTAL SPEND OTHER</th>
-                                            <th>TOTAL SPEND</th>
+                                            <th>TOTAL BUDGET</th>
+                                            <th>TOTAL COST PE</th>
+                                            <th>TOTAL COST OTHER</th>
+                                            <th>TOTAL COST</th>
                                             <th>TOTAL PROFIT( IF ANY)</th>
                                             <th>TOTAL LOSS( IF ANY)</th>
                                             <th>PROFIT/LOSS</th>
@@ -163,7 +163,7 @@
                                                 @php
                                                     try {
                                                         $spend = $summary['amt_spend']  + $summary['other_spend'];
-                                                       $total =(($summary['amt_received'] - $spend)/$spend) * 100;
+                                                       $total =($summary['amt_received']/$spend) * 100;
                                                     } catch (\Throwable $th) {
                                                         //throw $th;
                                                     }
@@ -209,7 +209,13 @@
                                             <option value="claim">Claim</option>
                                             <option value="salary">Salary</option>
                                             <option value="tools">Tools</option>
-                                            <option value="others">Others</option>
+                                            <option value="cable">Cable</option>
+                                            <option value="rtu_cable">RTU Cable</option>
+                                            <option value="store_rental">Store Rental</option>
+                                            <option value="ARAZ">ARAZ</option>
+                                            <option value="TRANDUCER">TRANDUCER</option>
+                                            <option value="consultation_fee">consultation_fee</option>
+                                         <option value="others">Others</option>
                                         </select>
                                     </div>
                                     <div class="col-md-2">
@@ -277,7 +283,7 @@
                                         <th>PE NAME</th>
                                         <th>VENDOR NAME</th>
                                         <th>SWITCHGEAR</th>
-                                        <th>KKB</th>
+                                        <!-- <th>KKB</th>
                                         <th>CFS</th>
                                         <th>BO</th>
                                         <th>PIW</th>
@@ -295,7 +301,17 @@
                                         <th>TOTAL PENDING</th>
                                         <th>TOTAL OUTSTANDING</th>
                                         <th>TOTAL PROFIT  </th>
-                                        <th>TOTAL LOSS </th>
+                                        <th>TOTAL LOSS </th> -->
+                                        <th>BO</th>
+                                        <th>PIW</th>
+                                        <th>OUTAGE</th>
+                                        <th>RTU</th>
+                                        <th>KKB</th>
+                                        <th>JOINTER</th>
+                                        <th>TESTER</th>
+                                        <th>TRANSPORT</th>
+                                        <th>TOTAL OUTSTANDING</th>
+                                        <th>TOTAL SPENDINGS</th>
 
 
 
@@ -303,70 +319,36 @@
                                 </thead>
                                 <tbody>
 
-                                @foreach ($site_data['pe_csu'] as $csu)
-                                    <tr>
-                                        <td class="align-middle">{{ $csu->pe_name }}</td>
-                                        <td>{{$csu->vendor_name}}</td>
-                                        <td class="align-middle">COMPACT</td>
-                                        <td class="{{str_replace(' ', '_' , $csu->CsuSpends->amt_kkb_status  )}}">{{ $csu->CsuSpends->amt_kkb }}</td>
-                                        <td class="{{str_replace(' ', '_' , $csu->CsuSpends->amt_cfs_status  )}}" >{{ $csu->CsuSpends->amt_cfs }}</td>
-                                        <td class="{{str_replace(' ', '_' , $csu->CsuSpends->amt_bo_status  )}}">{{ $csu->CsuSpends->amt_bo }}</td>
-                                        <td>-</td>
-                                        <td>-</td>
-
-                                        <td class="{{str_replace(' ', '_' , $csu->CsuSpends->amt_rtu_status  )}}">{{ $csu->CsuSpends->amt_rtu }}</td>
-                                        <td>-</td>
-                                        <td class="{{str_replace(' ', '_' , $csu->CsuSpends->amt_tools_status  )}}">{{ $csu->CsuSpends->tools }}</td>
-                                        <td>-</td>
-                                        <td class="{{str_replace(' ', '_' , $csu->CsuSpends->amt_store_rental_status  )}}">{{ $csu->CsuSpends->amt_store_rental }}</td>
-                                        <td class="{{str_replace(' ', '_' , $csu->CsuSpends->amt_transport_status  )}}">{{ $csu->CsuSpends->amt_transport }}</td>
-                                        <td class="{{str_replace(' ', '_' , $csu->CsuSpends->amt_salary_status  )}}">{{ $csu->CsuSpends->amt_salary }}</td>
-
-
-
-                                        <td class="align-middle">{{ $csu->total }}</td>
-                                        <td>{{$csu->fix_profit}}</td>
-                                        <td class="align-middle">{{ $csu->CsuSpends->total }}
-                                        </td>
-                                        <td>{{ $csu->CsuSpends->pending_payment }}</td>
-                                        <td>{{$csu->CsuSpends->outstanding_balance}}</td>
-                                       @php
-                                            try {
-                                                $csu->fix_profit = $csu->fix_profit == '' ? 1 : $csu->fix_profit;
-                                             $profit  =  (($csu->total - $csu->CsuSpends->total) / $csu->fix_profit) * 100;
-                                            } catch (\Throwable $th) {
-                                                //throw $th;
-                                            }
-                                              @endphp
-                                      <td class="align-middle text-center text-success"> {{ $profit > 0 ? number_format($profit,2) .' % ' : ''}} </td>
-                                      <td class="align-middle text-center text-danger"> {{ $profit < 0 ? number_format($profit,2) .' % ' : ''}} </td>
-                                    </tr>
-                                    @endforeach
 
                                     @foreach ($site_data['pe_rmu'] as $rmu)
                                     <tr>
                                         <td class="align-middle">{{ $rmu->pe_name }}</td>
                                         <td>{{$rmu->vendor_name}}</td>
 
-                                        <td class="align-middle">RMU</td>
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_kkb_status )}}">{{ $rmu->RmuSpends->amt_kkb }}</td>
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_cfs_status )}}">{{ $rmu->RmuSpends->amt_cfs }}</td>
+                                        <td class="align-middle">{{$rmu->switch}}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_bo_status )}}">{{ $rmu->RmuSpends->amt_bo }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_piw_status )}}">{{ $rmu->RmuSpends->amt_piw }}</td>
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_cable_status )}}">{{ $rmu->RmuSpends->amt_cable }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_kkb_status )}}">{{ $rmu->RmuSpends->amt_outage }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_rtu_status )}}">{{ $rmu->RmuSpends->amt_rtu }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_kkb_status )}}">{{ $rmu->RmuSpends->amt_kkb }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_kkb_status )}}">{{ $rmu->RmuSpends->amt_pk }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_kkb_status )}}">{{ $rmu->RmuSpends->amt_ir }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_transport_status )}}">{{ $rmu->RmuSpends->amt_transport }}</td>
+                                        <td>{{$rmu->RmuSpends->outstanding_balance}}</td>
+                                        <td class="align-middle">{{ $rmu->RmuSpends->total }}</td>
+
+                                        {{-- <!-- <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_cfs_status )}}">{{ $rmu->RmuSpends->amt_cfs }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_cable_status )}}">{{ $rmu->RmuSpends->amt_cable }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_rtu_cable_status )}}">{{ $rmu->RmuSpends->amt_rtu_cable }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_tools_status )}}">{{ $rmu->RmuSpends->amt_tools }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_transducer_status )}}">{{ $rmu->RmuSpends->amt_transducer }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_store_rental_status )}}">{{ $rmu->RmuSpends->amt_store_rental }}</td>
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_transport_status )}}">{{ $rmu->RmuSpends->amt_transport }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_salary_status )}}">{{ $rmu->RmuSpends->amt_salary }}</td>
                                         <td class="align-middle">{{ $rmu->total }}</td>
                                         <td>{{$rmu->fix_profit}}</td>
                                         <td class="align-middle">{{ $rmu->RmuSpends->total }}</td>
-                                        <td>{{ $rmu->RmuSpends->pending_payment }}</td>
-                                        <td>{{$rmu->RmuSpends->outstanding_balance}}</td>
-                                       @php
+                                        <td>{{ $rmu->RmuSpends->pending_payment }}</td> -->
+                                       <!-- @php
                                             try {
                                                 $rmu->fix_profit = $rmu->fix_profit == '' ? 1 : $rmu->fix_profit;
                                              $profit  =  (($rmu->total - $rmu->RmuSpends->total) / $rmu->fix_profit) * 100;
@@ -376,47 +358,11 @@
                                               @endphp
                                         <td class="align-middle text-center text-success"> {{ $profit > 0 ? number_format($profit,2) .' % ' : '' }} </td>
                                         <td class="align-middle text-center text-danger"> {{ $profit < 0 ? number_format($profit,2) .' % ' : '' }} </td>
+                                     -->--}}
                                     </tr>
                                     @endforeach
 
-                                    @foreach ($site_data['pe_vcb'] as $vcb)
-                                    <tr>
-                                        <td class="align-middle">{{ $vcb->pe_name }}</td>
-                                        <td>{{$vcb->vendor_name}}</td>
 
-                                        <td class="align-middle">COMPACT</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td class="{{str_replace(' ', '_' , $vcb->VcbSpends->amt_bo_status  )}}">{{ $vcb->VcbSpends->amt_bo }}</td>
-                                        <td class="{{str_replace(' ', '_' , $vcb->VcbSpends->amt_piw_status  )}}">{{ $vcb->VcbSpends->amt_piw }}</td>
-                                        <td class="{{str_replace(' ', '_' , $vcb->VcbSpends->amt_cable_status  )}}">{{ $vcb->VcbSpends->amt_cable }}</td>
-                                        <td class="{{str_replace(' ', '_' , $vcb->VcbSpends->amt_rtu_status  )}}">{{ $vcb->VcbSpends->amt_rtu }}</td>
-                                        <td class="{{str_replace(' ', '_' , $vcb->VcbSpends->amt_rtu_cable_status  )}}">{{ $vcb->VcbSpends->amt_rtu_cable }}</td>
-                                        <td class="{{str_replace(' ', '_' , $vcb->VcbSpends->amt_tools_status  )}}">{{ $vcb->VcbSpends->amt_tools }}</td>
-                                        <td class="{{str_replace(' ', '_' , $vcb->VcbSpends->amt_transducer_status  )}}">{{ $vcb->VcbSpends->amt_transducer }}</td>
-                                        <td class="{{str_replace(' ', '_' , $vcb->VcbSpends->amt_transport_status  )}}">{{ $vcb->VcbSpends->amt_store_rental }}</td>
-                                        <td class="{{str_replace(' ', '_' , $vcb->VcbSpends->amt_transport_status  )}}">{{ $vcb->VcbSpends->amt_transport }}</td>
-                                        <td class="{{str_replace(' ', '_' , $vcb->VcbSpends->amt_salary_status  )}}">{{ $vcb->VcbSpends->amt_salary }}</td>
-                                        <td class="align-middle">{{ $vcb->total }}</td>
-                                        <td>{{$vcb->fix_profit}}</td>
-                                        <td class="align-middle">{{ $vcb->VcbSpends->total }}
-                                        </td>
-                                        <td>{{ $vcb->VcbSpends->pending_payment }}</td>
-                                        <td>{{$vcb->VcbSpends->outstanding_balance}}</td>
-                                       @php
-                                            try {
-                                                $vcb->fix_profit = $vcb->fix_profit == '' ? 1 : $vcb->fix_profit;
-                                             $profit  =  (($vcb->total - $vcb->VcbSpends->total) / $vcb->fix_profit) * 100;
-                                            } catch (\Throwable $th) {
-                                                //throw $th;
-                                            }
-                                              @endphp
-
-                                            <td class="align-middle text-center text-success"> {{ $profit > 0 ? number_format($profit,2) .' % ' : '' }} </td>
-                                            <td class="align-middle text-center text-danger"> {{ $profit < 0 ? number_format($profit,2) .' % ' : '' }} </td>
-
-                                    </tr>
-                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -430,6 +376,76 @@
 
 
         </div>
+
+
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class=" d-flex justify-content-between">
+                            <h5> PROJECT SUMMARY </h5>
+                        </div>
+
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+
+                        <div class="text-end mb-4">
+
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="site-data" class="table table-bordered  ">
+
+
+                                <thead style="background-color: #E4E3E3 !important">
+                                    <tr>
+                                            <th>Claim</th>
+                                            <th>Salary</th>
+                                            <th>Tools</th>
+                                            <th>Cable</th>
+                                            <th>RTU </th>
+                                            <th>Store Rental</th>
+                                            <th>ARAZ</th>
+                                            <th>TRANDUCER</th>
+                                            <th>consultation_fee</th>
+                                            <th>Others</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                @php
+                $paymentTypes = ['claim', 'salary', 'tools', 'cable', 'rtu_cable', 'store_rental', 'ARAZ', 'TRANDUCER', 'consultation_fee', 'others'];
+                $totals = collect($others)->pluck('total_amount', 'pmt_type')->toArray();
+                @endphp
+
+                @foreach ($paymentTypes as $type)
+                    <td class="align-middle">
+                        {{ $totals[$type] ?? '0' }}
+                    </td>
+                @endforeach
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+
     </section>
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">
@@ -490,9 +506,15 @@
                                 <select name="pmt_type" id="pmt_name" class="form-control" required>
                                     <option value="" hidden>select</option>
                                     <option value="claim">Claim</option>
-                                    <option value="salary">Salary</option>
-                                    <option value="tools">Tools</option>
-                                    <option value="others">Others</option>
+                                            <option value="salary">Salary</option>
+                                            <option value="tools">Tools</option>
+                                            <option value="cable">Cable</option>
+                                            <option value="rtu_cable">RTU Cable</option>
+                                            <option value="store_rental">Store Rental</option>
+                                            <option value="ARAZ">ARAZ</option>
+                                            <option value="TRANDUCER">TRANDUCER</option>
+                                            <option value="consultation_fee">consultation_fee</option>
+                                         <option value="others">Others</option>
                                 </select>
                             </div>
                         </div>

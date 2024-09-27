@@ -37,7 +37,8 @@ class RmuAeroSpendModel extends Model
         'amt_pk',
         'amt_pk_status',
         'pending_payment',
-        'outstanding_balance'
+        'outstanding_balance',
+        'project'
 
     ];
 

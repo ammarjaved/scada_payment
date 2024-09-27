@@ -21,6 +21,7 @@ class RmuBudgetTNBModel extends Model
         'fix_profit',
         'date_time',
         'vendor_name',
+        'switch',
     ];
 
     public function RmuSpends() {

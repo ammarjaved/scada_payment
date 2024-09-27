@@ -49,7 +49,6 @@ class RmuPaymentDetailController extends Controller
      */
     public function store(Request $request)
     {
-       // return $request->all();
         try {
             $data = RmuAeroSpendModel::find($request->p_id);
 
@@ -57,6 +56,9 @@ class RmuPaymentDetailController extends Controller
                 return response()->json(['success' => false, 'error' => 'Reqest Falied'], 500);
             }
                 $request['rmu_id'] = $request->p_id;
+                $vendor=\Auth::user()->project;
+                $request['project'] =$vendor;
+
                 $paymentDetail = RmuPaymentDetailModel::create($request->all());
                 $this->PaymentDetailTnb->updatePayments($request->p_id , 'rmu');
 

@@ -65,14 +65,17 @@
 
 
 
-                    <!-- <div class="row">
+                    <div class="row" style="display:none;">
                         <div class="col-md-4">
-                            <label for="cfs">CFS</label>
+                            <label for="switch">switch</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="number" name="cfs" id="cfs" class="form-control" required value="{{ old('cfs', isset($item) ? $item->cfs : '') }}" {{ isset($disabled) ? 'readonly' : '' }} >
+                            <input type="text" name="switch" id="switch" class="form-control"  
+                            value="{{ old('switch', isset($item) ? $item->switch :  $switch ) }}"
+
+                            >
                         </div>
-                    </div> -->
+                    </div>
 
 
 

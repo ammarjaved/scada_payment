@@ -58,7 +58,7 @@ class RmuBudgetTNBController extends Controller
                 return redirect()->route('rmu-budget-tnb.index', $check->id);
             }
         }
-        return view('rmu-budget-tnb.form', ['name' => $data->nama_pe,'date'=>date($data->created_at)]);
+        return view('rmu-budget-tnb.form', ['name' => $data->nama_pe,'switch' => $data->jenis_perkakasuis,'date'=>date($data->created_at)]);
     }
 
     /**
@@ -70,11 +70,14 @@ class RmuBudgetTNBController extends Controller
     public function store(Request $request)
     {
         try {
+            $vendor=\Auth::user()->project;
+            $request['vendor_name']=$vendor;
             if ($request->id == '' && !RmuBudgetTNBModel::where('pe_name', $request->pe_name)->first()) {
+               // return $request->all();
                 $storeBudget = RmuBudgetTNBModel::create($request->all());
 
                 if ($storeBudget) {
-                   $rec= RmuAeroSpendModel::create(['id_rmu_budget' => $storeBudget->id]);
+                   $rec= RmuAeroSpendModel::create(['id_rmu_budget' => $storeBudget->id,'project'=>$vendor]);
                 }
             } else {
                 $rec = RmuBudgetTNBModel::find($request->id);

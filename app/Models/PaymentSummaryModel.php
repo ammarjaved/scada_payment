@@ -17,6 +17,7 @@ class PaymentSummaryModel extends Model
         'pmt_receiver_name',
         'date_time',
         'description',
+        'project'
 
     ];
 
