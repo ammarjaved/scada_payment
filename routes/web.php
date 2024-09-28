@@ -89,6 +89,12 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('rmu-payment-details', RmuPaymentDetailController::class);
 
+    Route::get('paymentviewdetail', [RmuPaymentDetailController::class, 'Paymentview'])->name('paymentviewdetail.Paymentview');
+    Route::get('updatepayment/{id}/{rmu_id}/{pmt_type}', [RmuPaymentDetailController::class, 'UpdatePayment'])->name('paymentdetail.updatepayment');
+
+
+
+
     Route::resource('rmu-aero-spend', RmuAeroSpendController::class,['except' => ['create','index']]);
     Route::get('rmu-aero-spend/create/{id}/{pe_name}', [RmuAeroSpendController::class, 'create'])->name('rmu-aero-spend.create');
     Route::get('rmu-aero-spend/index/{id}', [RmuAeroSpendController::class, 'index'])->name('rmu-aero-spend.index');
