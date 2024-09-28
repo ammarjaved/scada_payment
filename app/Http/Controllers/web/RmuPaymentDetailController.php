@@ -54,6 +54,8 @@ class RmuPaymentDetailController extends Controller
         $payment_detail->update(['status'=>'work done and payed']);
     }
 
+    $this->PaymentDetailTnb->updatePayments($rmu_id , 'rmu');
+
     $data = RmuPaymentDetailModel::where('status', 'work done but not payed')->get();
     return response()->json(['success' => true], 200);
 

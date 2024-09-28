@@ -60,15 +60,17 @@
                     <div class="row">
                         <div class="col-md-4"><label for="status">Status</label></div>
                         <div class="col-md-8">
-                            <select name="status" id="status" class="form-control" required>
-                                <option value="" hidden>select status</option>
+                            <!-- <select name="status" id="status" class="form-control" required>
+                                <option value="" hidden>select status</option> -->
                                 <!-- <option value="work done and payed">work done and payed</option> -->
-                                <option value="work done but not payed">work done</option>
+                                <!-- <option value="work done but not payed">work done</option> -->
                                 <!-- <option value="work not done but payed">work not done but payed</option> -->
                                 <!-- <option value="not work done and  not payed">not work done and not payed</option> -->
                                 <!-- <option value="work done partial payment">work done partial payment</option> -->
                             <!-- <option value="partial work done partial payment">partial work done partial payment</option> -->
-                            </select>
+                            <!-- </select> -->
+                            <input name="status" type="text" id="status" value="work done but not payed" style="display:none;" class="form-control" required>
+
                         </div>
                     </div>
                     <div class="row">

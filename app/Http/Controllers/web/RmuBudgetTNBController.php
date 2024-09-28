@@ -28,7 +28,7 @@ class RmuBudgetTNBController extends Controller
                 ->find($id);
                // ->first();
 
-               $data->profit_percent= ($data->RmuSpends->total/$data->total)*100;  
+               $data->profit_percent= (($data->total-$data->RmuSpends->total)/$data->total)*100;  
                $data->profit_total= ($data->total)-($data->RmuSpends->total);  
                $data->spending_total= $data->RmuSpends->total;  
 

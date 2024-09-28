@@ -162,8 +162,9 @@
 
                                                 @php
                                                     try {
+
                                                         $spend = $summary['amt_spend']  + $summary['other_spend'];
-                                                       $total =($summary['amt_received']/$spend) * 100;
+                                                       $total = (($summary['amt_received']- $spend )/$summary['amt_received'])*100;                     
                                                     } catch (\Throwable $th) {
                                                         //throw $th;
                                                     }

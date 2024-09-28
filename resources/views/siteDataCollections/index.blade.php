@@ -72,8 +72,8 @@
                                             <th>SWITCHGEAR</th>
                                             <th>TOTAL BUDGET</th>
                                             <th>TOTAL COST</th>
-                                            <th>TOTAL PROFIT(%)</th>
                                             <th>TOTAL PROFIT</th>
+                                            <th>TOTAL PROFIT(%)</th>                   
                                             <th>ACCOUNTS</th>
                                         </tr>
                                     </thead>
@@ -89,10 +89,11 @@
                                                     {{ $data->budget ? $data->budget : '-' }}</td>
                                                     <td class="align-middle">
                                                     {{ $data->aero_spend ? $data->aero_spend : '-' }}</td> 
+                                                    
                                                     <td class="align-middle">
-                                                    {{ $data->profit_percent ? $data->profit_percent : '-' }}</td>  
+                                                    {{ $data->profit_total ? $data->profit_total : '-' }}</td> 
                                                     <td class="align-middle">
-                                                    {{ $data->profit_total ? $data->profit_total : '-' }}</td>      
+                                                    {{ $data->profit_percent ? $data->profit_percent : '-' }}</td>       
                                                    
                                                     <td class="align-middle text-center">
                                                         @if ( $data->nama_pe != '')

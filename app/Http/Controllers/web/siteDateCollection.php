@@ -50,7 +50,7 @@ class siteDateCollection extends Controller
 
                 if ($matchingRmu->RmuSpends) {
                     $data->aero_spend = $matchingRmu->RmuSpends->total; // Adjust field name as necessary
-                    $data->profit_percent=($matchingRmu->RmuSpends->total/$matchingRmu->total)*100;
+                    $data->profit_percent=(($matchingRmu->total-$matchingRmu->RmuSpends->total)/$matchingRmu->total)*100;
                     $data->profit_total=$matchingRmu->total-$matchingRmu->RmuSpends->total;
 
 
