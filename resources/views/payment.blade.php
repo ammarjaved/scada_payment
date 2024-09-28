@@ -14,6 +14,7 @@
         </div>
     </div>
 </section>
+@include('components.script-messages')
 
 <section class="content">
     <div class="container-fluid">
@@ -36,7 +37,7 @@
                     </thead>
                     <tbody>
                         @foreach ($data as $payment)
-                            <tr>
+                            <tr id='{{ $payment->id }}'>
                                 <td>{{ $payment->id }}</td>
                                 <td>{{ $payment->pmt_name }}</td>
                                 <td>{{ $payment->amount }}</td>
@@ -47,7 +48,7 @@
                                 <td>
                                     <!-- Slider Button -->
                                     <label class="switch">
-                                        <input type="checkbox" onchange="togglePayment({{ $payment->id }})" {{ $payment->status == 'Active' ? 'checked' : '' }}>
+                                        <input type="checkbox" onchange="togglePayment({{ $payment->id }},{{ $payment->rmu_id }},'{{ $payment->pmt_name }}')" {{ $payment->status == 'Active' ? 'checked' : '' }}>
                                         <span class="slider round"></span>
                                     </label>
                                 </td>
@@ -63,26 +64,41 @@
 @endsection
 
 @section('script')
+<script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+
+<script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+
 <script>
-    function togglePayment(paymentId) {
+
+    function togglePayment(paymentId,rmu_id,pmt_name) {
         // Add your AJAX or form submission logic here to handle the toggle action
-        alert("Toggle payment status for ID: " + paymentId);
+        //alert("Toggle payment status for ID: " + paymentId);
         // Example AJAX request (modify as needed)
-        /*
+        var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        
         $.ajax({
-            url: '/payments/toggle/' + paymentId, // Adjust the URL as necessary
-            type: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}', // Add CSRF token for protection
-            },
+            url: '/updatepayment/' + paymentId+'/'+rmu_id+'/'+pmt_name, // Adjust the URL as necessary
+            type: 'GET',
+           
             success: function(response) {
-                // Handle success (e.g., update UI or notify user)
+             //   toastr.success('Payment update successfully!');
+             alert('Payment update successfully!')
+                const row = document.getElementById(paymentId);
+                if (row) {
+                    row.remove();
+                }
+
             },
             error: function(xhr) {
                 // Handle error
             }
         });
-        */
+        
     }
 </script>
 

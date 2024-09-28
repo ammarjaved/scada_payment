@@ -40,6 +40,30 @@ class RmuPaymentDetailController extends Controller
     }
     
 
+    public function UpdatePayment($id,$rmu_id,$pmt_type)
+    {
+        try{
+        RmuAeroSpendModel::find($rmu_id)->update([
+            $pmt_type.'_status'=>'work done and payed'
+        ]);
+
+        $payment_detail = RmuPaymentDetailModel::find($id);
+        // get payment detail recored and check if exist
+    if ($payment_detail) {
+
+        $payment_detail->update(['status'=>'work done and payed']);
+    }
+
+    $data = RmuPaymentDetailModel::where('status', 'work done but not payed')->get();
+    return response()->json(['success' => true], 200);
+
+        }catch (\Throwable $th) {
+
+            return response()->json(['success' => false, 'error' => $th->getMessage()], 500);
+        }
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

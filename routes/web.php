@@ -90,6 +90,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('rmu-payment-details', RmuPaymentDetailController::class);
 
     Route::get('paymentviewdetail', [RmuPaymentDetailController::class, 'Paymentview'])->name('paymentviewdetail.Paymentview');
+    Route::get('updatepayment/{id}/{rmu_id}/{pmt_type}', [RmuPaymentDetailController::class, 'UpdatePayment'])->name('paymentdetail.updatepayment');
+
 
 
 
