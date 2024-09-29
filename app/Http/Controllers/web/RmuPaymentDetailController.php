@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\RmuPaymentDetailModel;
 use App\Models\RmuAeroSpendModel;
 use App\Repositories\PaymentDetail;
+use App\Models\RmuBudgetTNBModel;
+
 
 class RmuPaymentDetailController extends Controller
 {
@@ -33,7 +35,45 @@ class RmuPaymentDetailController extends Controller
 
     public function Paymentview()
     {
-        $data = RmuPaymentDetailModel::where('status', 'work done but not payed')->get();
+        $data = RmuPaymentDetailModel::with(['RmuSpendDetail'])->where('status', 'work done but not payed')->get();
+
+        // $debugInfo = $data->map(function ($item) {
+        //     return [
+        //         'id' => $item->id,
+        //         'rmu_id' => $item->rmu_id,
+        //         'has_rmu_spend_detail' => $item->relationLoaded('RmuSpendDetail'),
+        //         'rmu_spend_detail' => $item->RmuSpendDetail,
+        //     ];
+        // })->toArray();
+        
+        // dd($debugInfo);
+
+
+        $budgetIds = $data->map(function ($item) {
+            $item->relationLoaded('RmuSpendDetail');
+            return $item->RmuSpendDetail->id_rmu_budget ?? null;
+        })->filter()->unique()->values()->toArray();
+
+        
+   // dd($budgetIds);
+
+        // Fetch pe_names for these budget IDs
+        $peNames = RmuBudgetTNBModel::whereIn('id', $budgetIds)
+            ->pluck('pe_name', 'id')
+            ->toArray();
+       // return  $peNames;
+
+       $data = $data->map(function ($item) use ($peNames) {
+        $item->relationLoaded('RmuSpendDetail');
+
+        $budgetId = $item->RmuSpendDetail->id_rmu_budget ?? null;
+        $item->pe_name = $peNames[$budgetId] ?? null;
+        return $item;
+    });
+
+        
+
+        //return $data;
 
         
         return view('payment', compact('data'));

@@ -16,9 +16,12 @@
 </section>
 @include('components.script-messages')
 
-<section class="content">
+<section>
     <div class="container-fluid">
-        <div class="container bg-white shadow my-4" style="border-radius: 10px">
+    <div class="col-12">
+    
+    <div class="card">
+    <div class="card-body">
             @if($data->isEmpty())
                 <p class="p-4">No payment records found.</p>
             @else
@@ -26,39 +29,44 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>PE Name</th>
                             <th>Payment Name</th>
                             <th>Amount</th>
-                            <th>Status</th>
-                            <th>Payment Date</th>
+                            <th>Work Done Date</th>
                             <th>Vendor Name</th>
-                            <th>Project</th>
-                            <th>Action</th> <!-- New Action Column -->
+                            <th>Action</th> 
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($data as $payment)
                             <tr id='{{ $payment->id }}'>
                                 <td>{{ $payment->id }}</td>
+                                <td>{{ $payment->pe_name}}</td>
                                 <td>{{ $payment->pmt_name }}</td>
                                 <td>{{ $payment->amount }}</td>
-                                <td>{{ $payment->status }}</td>
                                 <td>{{ $payment->pmt_date }}</td>
                                 <td>{{ $payment->vendor_name }}</td>
-                                <td>{{ $payment->project }}</td>
                                 <td>
-                                    <!-- Slider Button -->
-                                    <label class="switch">
-                                        <input type="checkbox" onchange="togglePayment({{ $payment->id }},{{ $payment->rmu_id }},'{{ $payment->pmt_name }}')" {{ $payment->status == 'Active' ? 'checked' : '' }}>
-                                        <span class="slider round"></span>
-                                    </label>
+                                <input type="checkbox" style="min-width:0px !important;" id="{{ $payment->id }},{{ $payment->rmu_id }},'{{ $payment->pmt_name }}'">
                                 </td>
+                               
                             </tr>
                         @endforeach
+                        <tr>
+                        <td colspan="6"></td>
+
+                        <td><input type="button" onclick="togglePayment()" class="btn btn-success" value="Pay"/></td>
+                        </tr>
+
                     </tbody>
                 </table>
             @endif
-        </div>
+            </div>  
+            </div>   
+ 
     </div>
+    </div>
+
 </section>
 
 @endsection
@@ -70,91 +78,61 @@
 
 <script>
 
-    function togglePayment(paymentId,rmu_id,pmt_name) {
-        // Add your AJAX or form submission logic here to handle the toggle action
-        //alert("Toggle payment status for ID: " + paymentId);
-        // Example AJAX request (modify as needed)
-        var Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 2000
-            });
+   
+
+    function togglePayment() {
+
+        var checkedIds = $('input[type="checkbox"]:checked').map(function() {
+            return this.id;
+        }).get();
+  
+
+        addData(checkedIds,0)
+      //  console.log("Checked IDs:", checkedIds);
+       
+        // var Toast = Swal.mixin({
+        //         toast: true,
+        //         position: 'top-end',
+        //         showConfirmButton: false,
+        //         timer: 2000
+        //     });
         
+        
+        
+    }
+
+    function addData(checkedIds,index){
+       var len=checkedIds.length;
+       if(len==0){
+        alert('please select record first!')
+        return;
+       }
+       var  values='';
+       if(index<len){
+          values=checkedIds[index].split(',');
+       }else{
+        alert('Payment update successfully!')
+        return;
+       }
+
         $.ajax({
-            url: '/updatepayment/' + paymentId+'/'+rmu_id+'/'+pmt_name, // Adjust the URL as necessary
+            url: '/updatepayment/' + values[0]+'/'+values[1]+'/'+values[2], // Adjust the URL as necessary
             type: 'GET',
            
             success: function(response) {
              //   toastr.success('Payment update successfully!');
-             alert('Payment update successfully!')
-                const row = document.getElementById(paymentId);
+                const row = document.getElementById(values[0]);
                 if (row) {
                     row.remove();
                 }
-
+                addData(checkedIds,index+1);
             },
             error: function(xhr) {
                 // Handle error
             }
         });
-        
     }
 </script>
 
-<style>
-    /* Slider Button Styles */
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 34px;
-    }
 
-    .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        transition: .4s;
-        border-radius: 34px;
-    }
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 26px;
-        width: 26px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        transition: .4s;
-        border-radius: 50%;
-    }
-
-    input:checked + .slider {
-        background-color: #2196F3;
-    }
-
-    input:checked + .slider:before {
-        transform: translateX(26px);
-    }
-
-    .slider.round {
-        border-radius: 34px;
-    }
-
-    .slider.round:before {
-        border-radius: 50%;
-    }
-</style>
 @endsection

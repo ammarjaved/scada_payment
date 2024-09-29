@@ -55,7 +55,7 @@
                             min="0" required disabled></td>
 
                     <td class="col-3">
-                        <textarea name="description" id="description_{{ $data->id }}" cols="30" rows="5" class="border-0"
+                        <textarea name="description" id="description_{{ $data->id }}" cols="30" rows="1" class="border-0"
                             disabled>{{ $data->description }}</textarea>
                     </td>
                     <td class="align-middle"><input type="datetime-local"

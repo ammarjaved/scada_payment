@@ -35,7 +35,7 @@
                         </td>
 
                             {{-- 4 description --}}
-                        <td><textarea name="description" id="{{$arr_name}}-{{$item->id}}-description" placeholder="description ..." class="border-0" cols="20" rows="3"  disabled>{{ $item->description  }}</textarea> </td>
+                        <td><textarea name="description" id="{{$arr_name}}-{{$item->id}}-description" placeholder="description ..." class="border-0" cols="20" rows="1"  disabled>{{ $item->description  }}</textarea> </td>
                             {{-- 5 date column --}}
                         <td><input type="date"   name="pmt_date" id="{{$arr_name}}-{{$item->id}}-pmt_date" class="border-0" value="{{ $item->pmt_date }}" disabled>  </td>
 
