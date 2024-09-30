@@ -43,8 +43,8 @@
     @include('components.script-messages')
 
     <section class="content">
-        <div class="container-fluid">
-            <div class="container- p-5 m-4 bg-white  shadow my-4 " style="border-radius: 10px">
+        <div class="container-fluid" style="padding:0 0 0 0;!important">
+            <div class="container- p-5 m-4 bg-white  shadow my-4 " style="border-radius: 10px;margin:0 0 0 0 !important;">
                 <x-payment-detail-header-table
                 :name="$data->RmuBudget->pe_name"
                 :budget="$data->RmuBudget->total"
