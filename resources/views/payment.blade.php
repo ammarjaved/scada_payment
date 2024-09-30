@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['page_title' => 'Payment'])
 
 @section('content')
 <section class="content-header">
@@ -16,7 +16,7 @@
 </section>
 @include('components.script-messages')
 
-<section>
+<section class="content">
     <div class="container-fluid">
     <div class="col-12">
     
@@ -25,6 +25,8 @@
             @if($data->isEmpty())
                 <p class="p-4">No payment records found.</p>
             @else
+            <div class="table-responsive">
+
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -60,6 +62,7 @@
 
                     </tbody>
                 </table>
+                </div>
             @endif
             </div>  
             </div>   
