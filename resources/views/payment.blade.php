@@ -37,6 +37,14 @@
                                 <option value="amt_ir">Tester</option>
                                 <option value="amt_transport">Transport</option>
                             </select>
+
+                            <label for="vendor-filter" class="mr-2">Vendor:</label>
+                            <select id="vendor-filter" class="form-control d-inline-block w-auto">
+                                <option value="">All Vendors</option>
+                                @foreach($data->pluck('vendor_name')->unique() as $vendor)
+                                    <option value="{{ $vendor }}">{{ $vendor }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="table-responsive">
@@ -49,20 +57,18 @@
                                         <th>Amount</th>
                                         <th>Work Done Date</th>
                                         <th>Vendor Name</th>
-                                       
                                         <th>Action</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($data as $payment)
-                                        <tr id='{{ $payment->id }}' data-payment-type="{{ $payment->pmt_name }}">
+                                        <tr id='{{ $payment->id }}' data-payment-type="{{ $payment->pmt_name }}" data-vendor="{{ $payment->vendor_name }}">
                                             <td>{{ $payment->id }}</td>
                                             <td>{{ $payment->project }}</td>
                                             <td>{{ $payment->pmt_name }}</td>
                                             <td>{{ $payment->amount }}</td>
                                             <td>{{ $payment->pmt_date }}</td>
                                             <td>{{ $payment->vendor_name }}</td>
-                                           
                                             <td>
                                                 <input type="checkbox" style="min-width:0px !important;" id="{{ $payment->id }},{{ $payment->rmu_id }},'{{ $payment->pmt_name }}'">
                                             </td>
@@ -88,18 +94,20 @@
 
 <script>
     $(document).ready(function() {
-        $('#payment-type-filter').on('change', function() {
+        $('#payment-type-filter, #vendor-filter').on('change', function() {
             filterTable();
         });
 
         function filterTable() {
             var paymentType = $('#payment-type-filter').val();
+            var vendor = $('#vendor-filter').val();
 
             $('#payment-table tbody tr').each(function() {
                 var row = $(this);
                 var rowPaymentType = row.data('payment-type');
+                var rowVendor = row.data('vendor');
 
-                if (!paymentType || rowPaymentType === paymentType) {
+                if ((!paymentType || rowPaymentType === paymentType) && (!vendor || rowVendor === vendor)) {
                     row.show();
                 } else {
                     row.hide();
