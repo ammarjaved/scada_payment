@@ -329,11 +329,11 @@
                                         <td class="align-middle">{{$rmu->switch}}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_bo_status )}}">{{ $rmu->RmuSpends->amt_bo }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_piw_status )}}">{{ $rmu->RmuSpends->amt_piw }}</td>
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_kkb_status )}}">{{ $rmu->RmuSpends->amt_outage }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_outage_status )}}">{{ $rmu->RmuSpends->amt_outage }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_rtu_status )}}">{{ $rmu->RmuSpends->amt_rtu }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_kkb_status )}}">{{ $rmu->RmuSpends->amt_kkb }}</td>
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_kkb_status )}}">{{ $rmu->RmuSpends->amt_pk }}</td>
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_kkb_status )}}">{{ $rmu->RmuSpends->amt_ir }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_pk_status )}}">{{ $rmu->RmuSpends->amt_pk }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_ir_status )}}">{{ $rmu->RmuSpends->amt_ir }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_transport_status )}}">{{ $rmu->RmuSpends->amt_transport }}</td>
                                         <td>{{$rmu->RmuSpends->outstanding_balance}}</td>
                                         <td class="align-middle">{{ $rmu->RmuSpends->total }}</td>
