@@ -160,17 +160,27 @@
                                                 </td>
                                             @endif
 
-                                                @php
-                                                    try {
-
-                                                        $spend = $summary['amt_spend']  + $summary['other_spend'];
-                                                       $total = (($summary['amt_received']- $spend )/$summary['amt_received'])*100;                     
-                                                    } catch (\Throwable $th) {
-                                                        //throw $th;
-                                                    }
-                                                @endphp
-                                            <td  class="text-center {{$total && $total < 0 ? 'text-dange' : 'text-success'}}">
-        {{number_format($total , 2 )}} %                                            </td>
+                                            @php
+                                            $total = null; // Initialize the variable
+                                            try {
+                                                $spend = $summary['amt_spend'] + $summary['other_spend'];
+                                                // Ensure amt_received is not zero to prevent division by zero
+                                                if ($summary['amt_received'] > 0) {
+                                                    $total = (($summary['amt_received'] - $spend) / $summary['amt_received']) * 100;
+                                                }
+                                            } catch (\Throwable $th) {
+                                                $total = null; // Set $total to null in case of an exception
+                                            }
+                                        @endphp
+                                        
+                                        <td class="text-center {{ $total !== null && $total < 0 ? 'text-danger' : 'text-success' }}">
+                                            @if(!empty($total) || $total === 0)
+                                                {{ number_format($total, 2) }} %
+                                            @else
+                                                <span class="text-danger">No data to display</span>
+                                            @endif
+                                        </td>
+                                        
                                         </tr>
                                     </tbody>
                                 </table>
@@ -201,38 +211,42 @@
                         <div class="card-body">
                             <form action="{{ route('payment-summary-search') }}" id="payment-filter" method="POST">
                                 @csrf
-                                <div class="row">
-
-                                    <div class="col-md-2">
-                                        <label for="search_type">Type : </label><br>
-                                        <select name="search_type" id="search_type">
-                                            <option value="">all</option>
-                                            <option value="claim">Claim</option>
-                                            <option value="salary">Salary</option>
-                                            <option value="tools">Tools</option>
-                                            <option value="cable">Cable</option>
-                                            <option value="rtu_cable">RTU Cable</option>
-                                            <option value="store_rental">Store Rental</option>
-                                            <option value="ARAZ">ARAZ</option>
-                                            <option value="TRANDUCER">TRANDUCER</option>
-                                            <option value="consultation_fee">consultation_fee</option>
-                                         <option value="others">Others</option>
-                                        </select>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                            <label for="search_type">Type:</label>
+                                            <select class="form-control" name="search_type" id="search_type">
+                                                <option value="">All</option>
+                                                <option value="claim">Claim</option>
+                                                <option value="salary">Salary</option>
+                                                <option value="tools">Tools</option>
+                                                <option value="cable">Cable</option>
+                                                <option value="rtu_cable">RTU Cable</option>
+                                                <option value="store_rental">Store Rental</option>
+                                                <option value="ARAZ">ARAZ</option>
+                                                <option value="TRANDUCER">TRANDUCER</option>
+                                                <option value="consultation_fee">Consultation Fee</option>
+                                                <option value="others">Others</option>
+                                            </select>
+                                        </div>
+                                
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                            <label for="from_search">From:</label>
+                                            <input class="form-control" type="date" name="from_search" id="from_search">
+                                        </div>
+                                
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
+                                            <label for="to_search">To:</label>
+                                            <input class="form-control" type="date" name="to_search" id="to_search">
+                                        </div>
+                                
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-2 d-flex align-items-end mb-6">
+                                            <button class="btn btn-secondary w-100" type="submit">FILTER</button>
+                                        </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <label for="from_search">From : </label><br>
-                                        <input type="date" name="from_search" id="from_search">
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <label for="to_search">To : </label><br>
-                                        <input type="date" name="to_search" id="to_search">
-                                    </div>
-                                    <div class="col-md-1"><br>
-                                        <button class="btn btn-sm btn-secondary" type="submit">FILTER</button>
-                                    </div>
-
                                 </div>
+                                
+                                
                             </form>
                             <div class="text-end mb-4">
 
