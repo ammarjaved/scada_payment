@@ -54,3 +54,42 @@
         </div>
     </form>
 </x-guest-layout>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+
+function loginreload() {
+  $.ajax({
+    url: '/check-auth',
+    method: 'GET',
+    dataType: 'json',
+    success: function(response) {
+      if (response.isAuthenticated) {
+     
+
+$(location).attr('href', '/site-data-collection');
+      }
+      console.log('Data received:', response);
+    },
+    error: function(xhr, status, error) {
+      console.error('Error:', error);
+    }
+  });
+}
+
+// Set interval to call loginreload() every 5 seconds
+setInterval(loginreload, 1000);
+
+
+
+
+
+
+</script>
+
+
+
+

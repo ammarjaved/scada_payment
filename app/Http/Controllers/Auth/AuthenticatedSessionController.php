@@ -20,6 +20,13 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
+
+
+    public function check()
+    {
+        return response()->json(['isAuthenticated' => Auth::check()]);
+    }
+
     /**
      * Handle an incoming authentication request.
      */

@@ -23,6 +23,7 @@ use App\Http\Controllers\web\VcbPaymentDetailController;
 use App\Http\Controllers\web\CsuPaymentDetailController;
 use App\Http\Controllers\web\PaymentSummaryController;
 use App\Http\Controllers\web\FilterPaymentSummaryController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 
 
@@ -49,6 +50,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/check-auth', [AuthenticatedSessionController::class, 'check']);
 
 
 Route::middleware('auth')->group(function () {
@@ -56,6 +58,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+
+  
 
     Route::resource('site-data-collection', siteDateCollection::class);
     Route::resource('update-site-data-images', updateSiteDataImages::class);
