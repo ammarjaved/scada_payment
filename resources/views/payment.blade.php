@@ -51,20 +51,20 @@
                             <table class="table table-bordered" id="payment-table">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Project</th>
-                                        <th>Payment Name</th>
-                                        <th>Amount</th>
-                                        <th>Work Done Date</th>
-                                        <th>Vendor Name</th>
-                                        <th>Action</th> 
+                                    <th>ID</th>
+                                    <th>PE Name</th>
+                                    <th>Payment Name</th>
+                                    <th>Amount</th>
+                                    <th>Work Done Date</th>
+                                    <th>Vendor Name</th>
+                                    <th>Action</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($data as $payment)
                                         <tr id='{{ $payment->id }}' data-payment-type="{{ $payment->pmt_name }}" data-vendor="{{ $payment->vendor_name }}">
                                             <td>{{ $payment->id }}</td>
-                                            <td>{{ $payment->project }}</td>
+                                            <td>{{ $payment->pe_name}}</td>
                                             <td>{{ $payment->pmt_name }}</td>
                                             <td>{{ $payment->amount }}</td>
                                             <td>{{ $payment->pmt_date }}</td>
