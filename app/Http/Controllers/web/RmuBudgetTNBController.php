@@ -10,9 +10,46 @@ use App\Models\RmuAeroSpendModel;
 use App\Models\RmuPaymentDetailModel;
 use App\Models\SiteDataCollection;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class RmuBudgetTNBController extends Controller
 {
+
+    public function listBudgets()
+    {
+        //we only get budgets for projects that belong to user
+        $project = Auth::user()->project;
+        $datas = SiteDataCollection::where('project', $project)->get();
+        
+        $rmus = RmuBudgetTNBModel::with('RmuSpends')->where('total', '>', 0)->get();
+    
+        foreach ($datas as $data) {
+            $matchingRmu = $rmus->firstWhere('pe_name', $data->nama_pe);
+    
+            if ($matchingRmu) {
+                $data->budget = $matchingRmu->total;
+    
+                if ($matchingRmu->RmuSpends) {
+                    $data->aero_spend = $matchingRmu->RmuSpends->total;
+                    $data->profit_percent = (($matchingRmu->total - $matchingRmu->RmuSpends->total) / $matchingRmu->total) * 100;
+                    $data->profit_total = $matchingRmu->total - $matchingRmu->RmuSpends->total;
+                } else {
+                    $data->aero_spend = null;
+                    $data->profit_percent = null;
+                    $data->profit_total = null;
+                }
+            } else {
+                $data->budget = 'Not Available'; // or any default value you prefer
+                $data->aero_spend = 'Not Available';
+                $data->profit_percent = 'Not Available';
+                $data->profit_total = 'Not Available';
+            }
+        }
+    
+        return view('rmu-budget-tnb.list-budgets', compact('datas', 'rmus'));
+    }
+        
+
     /**
      * Display a listing of the resource.
      *
@@ -165,7 +202,5 @@ class RmuBudgetTNBController extends Controller
 
         return redirect()->route('site-data-collection.index');
     }
-
-     
 
 }

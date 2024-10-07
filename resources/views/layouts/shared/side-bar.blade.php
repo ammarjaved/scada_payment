@@ -23,26 +23,17 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 @if (Auth::user()->type === true)
-                    <li
-                        class="nav-item {{ Request::route()->getName() === 'site-data-collection.create' || Request::route()->getName() === 'site-data-collection.index' ? 'menu-is-opening menu-open' : '' }}">
-                        <a href="#" class="nav-link">
-                            <i class="fa fa-book"></i>
-                            <p>
-                                Add Payments to PE
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                        
-                            <li class="nav-item">
-                                <a href="{{ route('site-data-collection.index') }}"
-                                    class="nav-link {{ Request::route()->getName() === 'site-data-collection.index' ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>index</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <ul>
+                        <li
+                            class="nav-item">
+                            <a href="{{ route('site-data-collection.index') }}" class="nav-link">
+                                <i class="fa fa-book"></i>
+                                <p>
+                                    Add Payments to PE
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
 
                   
                 @endif
@@ -119,7 +110,17 @@
  -->
 
 
-                    <ul>
+                <ul>
+                    <li class="nav-item">
+                        <a href="{{ route('rmu-budget-tnb.budgets') }}"
+                            class="nav-link  ">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>Add PE Payments</p>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul>
                     <li class="nav-item">
                         <a href="{{ route('payment-summary-details.index') }}"
                             class="nav-link  ">

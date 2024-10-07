@@ -104,6 +104,9 @@ Route::middleware('auth')->group(function () {
     Route::get('rmu-aero-spend/index/{id}', [RmuAeroSpendController::class, 'index'])->name('rmu-aero-spend.index');
 
 
+
+    Route::get('/rmu-budget-tnb/budgets', [RmuBudgetTNBController::class, 'listBudgets'])->name('rmu-budget-tnb.budgets');
+    
     Route::resource('rmu-budget-tnb', RmuBudgetTNBController::class,['except' => ['index' , 'create']]);
 
     Route::get('rmu-budget-tnb/index/{id}', [RmuBudgetTNBController::class, 'index'])->name('rmu-budget-tnb.index');
