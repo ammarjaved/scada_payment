@@ -166,6 +166,8 @@ class RmuAeroSpendController extends Controller
         // Group spend details by payment name
         $spendDetails = $this->groupSpendDetails($data->SpendDetail);
 
+       // return  $data;
+
         return view('rmu-aero-spend.edit', [
             'data' => $data,
             'spendDetails' => $spendDetails,

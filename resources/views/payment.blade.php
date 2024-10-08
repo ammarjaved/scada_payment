@@ -21,9 +21,82 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    @if($data1->isEmpty())
+                        <p class="p-4">No payment records found.</p>
+                    @else
+                    <h2>Payment Verification</h2>
+                        <div class="mb-3">
+                            <label for="payment-type-filter" class="mr-2">Payment Type:</label>
+                            <select id="payment-type-filter" class="form-control d-inline-block w-auto mr-3">
+                                <option value="">All</option>
+                                <option value="amt_bo">BO</option>
+                                <option value="amt_piw">PIW</option>
+                                <option value="amt_outage">OUTAGE</option>
+                                <option value="amt_rtu">RTU</option>
+                                <option value="amt_kkb">KKB</option>
+                                <option value="amt_pk">Jointer</option>
+                                <option value="amt_ir">Tester</option>
+                                <option value="amt_transport">Transport</option>
+                            </select>
+
+                            <label for="vendor-filter" class="mr-2">Vendor:</label>
+                            <select id="vendor-filter" class="form-control d-inline-block w-auto">
+                                <option value="">All Vendors</option>
+                                @foreach($data1->pluck('vendor_name')->unique() as $vendor)
+                                    <option value="{{ $vendor }}">{{ $vendor }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="payment-table">
+                                <thead>
+                                    <tr>
+                                    <th>ID</th>
+                                    <th>PE Name</th>
+                                    <th>Payment Name</th>
+                                    <th>Amount</th>
+                                    <th>Work Done Date</th>
+                                    <th>Vendor Name</th>
+                                    <th>Action</th> 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($data1 as $payment)
+                                        <tr id='{{ $payment->id }}' data-payment-type="{{ $payment->pmt_name }}" data-vendor="{{ $payment->vendor_name }}">
+                                            <td>{{ $payment->id }}</td>
+                                            <td>{{ $payment->pe_name}}</td>
+                                            <td>{{ $payment->pmt_name }}</td>
+                                            <td>{{ $payment->amount }}</td>
+                                            <td>{{ $payment->pmt_date }}</td>
+                                            <td>{{ $payment->vendor_name }}</td>
+                                            <td>
+                                                <input type="checkbox" style="min-width:0px !important;" id="{{ $payment->id }},{{ $payment->rmu_id }},'{{ $payment->pmt_name }}'">
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-3">
+                            <input type="button" onclick="togglePayment1()" class="btn btn-success" value="Verify"/>
+                        </div>
+                    @endif
+                </div>  
+            </div>   
+        </div>
+
+
+
+
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
                     @if($data->isEmpty())
                         <p class="p-4">No payment records found.</p>
                     @else
+                    <h2>Payment Transfer </h2>
                         <div class="mb-3">
                             <label for="payment-type-filter" class="mr-2">Payment Type:</label>
                             <select id="payment-type-filter" class="form-control d-inline-block w-auto mr-3">
@@ -124,6 +197,15 @@
         addData(checkedIds, 0);
     }
 
+
+    function togglePayment1() {
+        var checkedIds = $('input[type="checkbox"]:checked').map(function() {
+            return this.id;
+        }).get();
+
+        addData1(checkedIds, 0);
+    }
+
     function addData(checkedIds, index) {
         var len = checkedIds.length;
         if (len == 0) {
@@ -147,6 +229,37 @@
                     row.remove();
                 }
                 addData(checkedIds, index + 1);
+            },
+            error: function(xhr) {
+                // Handle error
+            }
+        });
+    }
+
+
+    function addData1(checkedIds, index) {
+        var len = checkedIds.length;
+        if (len == 0) {
+            alert('Please select record first!');
+            return;
+        }
+        var values = '';
+        if (index < len) {
+            values = checkedIds[index].split(',');
+        } else {
+            alert('Payment verified successfully!');
+            return;
+        }
+
+        $.ajax({
+            url: '/verifypayment/' + values[0] + '/' + values[1] + '/' + values[2],
+            type: 'GET',
+            success: function(response) {
+                const row = document.getElementById(values[0]);
+                if (row) {
+                    row.remove();
+                }
+                addData1(checkedIds, index + 1);
             },
             error: function(xhr) {
                 // Handle error

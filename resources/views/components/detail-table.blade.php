@@ -56,13 +56,13 @@
                     </form>
                 </tr>
             @endforeach
-            {{-- totoal of array     --}}
+            {{-- total of array     --}}
             @if (  $arr != [])
-                <tr>
+               {{-- <!-- <tr>
                     <td colspan="{{$action ? '5' : '4'}}" class="text-end"><strong>Total </strong></td>
-                    <td class="text-center"><strong id="{{$arr_name}}-{{$item->id}}-total">{{ number_format($data->$arr_name, 2, '.', ',')}} </strong></td>
+                    <td class="text-center"><strong id="{{$arr_name}}-{{$item->id}}-total">{{ $data->total}} </strong></td>
 
-                </tr>
+                </tr> -->--}}
             @endif
         </tbody>
         </table>

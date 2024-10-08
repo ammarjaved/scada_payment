@@ -72,9 +72,9 @@
 
                         </tbody>
                         <tfoot style="background-color: #E4E3E3 !important">
-
-                            <td colspan="2" class="text-end"><strong>Total : <span
-                                        class="subTotal">{{ $data->total }}</span></strong></td>
+                        {{-- <!-- 
+                           <td colspan="2" class="text-end"><strong>Total : <span
+                                        class="subTotal">{{ $data->total }}</span></strong></td> -->--}}
                         </tfoot>
                     </table>
                 </div>

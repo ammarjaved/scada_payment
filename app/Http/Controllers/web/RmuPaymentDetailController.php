@@ -35,7 +35,7 @@ class RmuPaymentDetailController extends Controller
 
     public function Paymentview()
     {
-        $data = RmuPaymentDetailModel::with(['RmuSpendDetail'])->where('status', 'work done but not payed')->get();
+        $data = RmuPaymentDetailModel::with(['RmuSpendDetail'])->where('status', 'work done but not payed')->where('verify_status','=','yes')->get();
 
 
 
@@ -65,8 +65,51 @@ class RmuPaymentDetailController extends Controller
 
         //return $data;
 
+        $data1=$this-> Verifyview();
+
+      ///  return $data;
+
         
-        return view('payment', compact('data'));
+        return view('payment', compact('data','data1'));
+    }
+
+
+
+
+    public function Verifyview()
+    {
+        $data = RmuPaymentDetailModel::with(['RmuSpendDetail'])->where('status', 'work done but not payed')->where('verify_status','=','no')->get();
+
+
+
+        $budgetIds = $data->map(function ($item) {
+            $item->relationLoaded('RmuSpendDetail');
+            return $item->RmuSpendDetail->id_rmu_budget ?? null;
+        })->filter()->unique()->values()->toArray();
+
+        
+   // dd($budgetIds);
+
+        // Fetch pe_names for these budget IDs
+        $peNames = RmuBudgetTNBModel::whereIn('id', $budgetIds)
+            ->pluck('pe_name', 'id')
+            ->toArray();
+       // return  $peNames;
+
+       $data = $data->map(function ($item) use ($peNames) {
+        $item->relationLoaded('RmuSpendDetail');
+
+        $budgetId = $item->RmuSpendDetail->id_rmu_budget ?? null;
+        $item->pe_name = $peNames[$budgetId] ?? null;
+        return $item;
+    });
+
+        
+
+        return $data;
+
+        
+        //return view('payment', compact('data'));
     }
     
 
@@ -88,6 +131,40 @@ class RmuPaymentDetailController extends Controller
 
     $data = RmuPaymentDetailModel::where('status', 'work done but not payed')->get();
     return response()->json(['success' => true], 200);
+
+        }catch (\Throwable $th) {
+
+            return response()->json(['success' => false, 'error' => $th->getMessage()], 500);
+        }
+
+    }
+
+
+    public function UpdateVeifyPayment($id,$rmu_id,$pmt_type)
+    {
+        try{
+        // RmuAeroSpendModel::find($rmu_id)->update([
+        //     $pmt_type.'_status'=>'work done and payed'
+        // ]);
+
+        $payment_detail = RmuPaymentDetailModel::where ('id',$id);
+
+        //return  $payment_detail;
+        // get payment detail recored and check if exist
+        if ($payment_detail) {
+
+            $payment_detail->update(['verify_status'=>'yes']);
+            return response()->json(['success' => true], 200);
+
+        }else{
+            return response()->json(['success' => false, 'error'], 500);
+
+        }
+
+      //  $this->PaymentDetailTnb->updatePayments($rmu_id , 'rmu');
+
+      //  $data = RmuPaymentDetailModel::where('status', 'work done but not payed')->get();
+        return response()->json(['success' => true], 200);
 
         }catch (\Throwable $th) {
 
