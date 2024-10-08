@@ -46,8 +46,8 @@ class RmuBudgetTNBController extends Controller
             }
         }
     
-        return view('rmu-budget-tnb.list-budgets', compact('datas', 'rmus'));
-    }
+         return view('rmu-budget-tnb.list-budgets', compact('datas', 'rmus'));
+     }
         
 
     /**

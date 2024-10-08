@@ -3,7 +3,7 @@
     <a href="{{ route('site-data-collection.index') }}" class="brand-link">
         <img src="{{ asset('assets/web-images/main-logo-sm.png') }}" alt="AdminLTE Logo" class="brand-image "
             style="opacity: .8">
-        <span class="brand-text font-weight-light" style="font-size: 19px !important">Scada Johor(Aero)</span>
+        <span class="brand-text font-weight-light" style="font-size: 19px !important"><b>DALCO JOHOR (AERO)</b></span>
     </a>
 
 
@@ -29,7 +29,7 @@
                             <a href="{{ route('site-data-collection.index') }}" class="nav-link">
                                 <i class="fa fa-book"></i>
                                 <p>
-                                    Add Payments to PE
+                                    Add Budget
                                 </p>
                             </a>
                         </li>
@@ -115,7 +115,7 @@
                         <a href="{{ route('rmu-budget-tnb.budgets') }}"
                             class="nav-link  ">
                             <i class="nav-icon fas fa-edit"></i>
-                            <p>Add PE Payments</p>
+                            <p>Add Payment-PE </p>
                         </a>
                     </li>
                 </ul>
@@ -125,10 +125,12 @@
                         <a href="{{ route('payment-summary-details.index') }}"
                             class="nav-link  ">
                             <i class="nav-icon fas fa-edit"></i>
-                            <p>Add Payments to Project</p>
+                            <p>Add Payments-Project</p>
                         </a>
                     </li>
                 </ul>
+
+             
 
                 <ul>
                     <li class="nav-item">
@@ -139,6 +141,16 @@
                     </li>
                 </ul>
                 
+
+                <ul>
+                    <li class="nav-item">
+                        <a href=""
+                            class="nav-link  ">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>Summary</p>
+                        </a>
+                    </li>
+                </ul>
 
 
                 @endif

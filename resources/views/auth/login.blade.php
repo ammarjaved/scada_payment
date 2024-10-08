@@ -7,10 +7,12 @@
 
         <div class="text-center">
             <img src="{{URL::asset('assets/web-images/main-logo.png')}}" alt="" height="60" srcset="" class="" style="height: 60px !important ; margin:5% auto">
+            <be>
+             <h3>DALCO PAYMENT JOHOR (AERO)</h3>   
         </div>
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
+            <x-input-label for="email" :value="__('Username')" />
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="username"  value=""/>
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
@@ -81,7 +83,7 @@ $(location).attr('href', '/site-data-collection');
 }
 
 // Set interval to call loginreload() every 5 seconds
-setInterval(loginreload, 1000);
+//setInterval(loginreload, 1000);
 
 
 

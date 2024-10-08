@@ -7,11 +7,11 @@
 @endsection
 
 @section('content')
-    <section class="content-header">
+    <!-- <section class="content-header">
         <div class="container">
             <h3>Budgets</h3>
         </div>
-    </section>
+    </section> -->
 
     <section class="content">
         <div class="container-fluid">
@@ -62,7 +62,7 @@
                                                             $matchingRmu = $rmus->firstWhere('pe_name', $data->nama_pe);
                                                         @endphp
                                                         @if ($matchingRmu)
-                                                            <a class="btn btn-primary btn-sm" href="{{ route('rmu-budget-tnb.index', $matchingRmu->id) }}">Set Spending</a>
+                                                            <a class="btn btn-primary btn-sm" href="{{ route('rmu-budget-tnb.index', $matchingRmu->id) }}">Add Spending</a>
                                                         @endif
                                                     @endif
                                                 </td>
