@@ -144,7 +144,7 @@
 
                 <ul>
                     <li class="nav-item">
-                        <a href=""
+                        <a href="{{ route('payment-summary-detail') }}"
                             class="nav-link  ">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>Summary</p>

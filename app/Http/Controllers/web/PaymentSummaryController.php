@@ -63,6 +63,44 @@ class PaymentSummaryController extends Controller
         return view('PaymentSummary.index', ['datas' => $paymentSummary,'summary'=>$total_arr ,'others'=>$other_all_sums, 'site_data'=>$site_data]);
     }
 
+
+
+    public function paymentSummary()
+    {
+        //
+        // $total = 0 ;
+        $total_arr=[];
+        $site_data = [];
+       // $csu_budget =  \App\Models\CsuBudgetTNBModel::sum('total');
+       $vendor=\Auth::user()->project;
+
+        $rmu_budget =  \App\Models\RmuBudgetTNBModel::where('vendor_name', '=', $vendor)->sum('total');
+       // $vcb_budget =  \App\Models\VcbBudgetTNBModel::sum('total');
+        $total_budget =  $rmu_budget ;
+        $total_arr['amt_received']= $total_budget;
+
+       //  $csu_spend = \App\Models\CsuAeroSpendModel::sum('total');
+         $rmu_spend = \App\Models\RmuAeroSpendModel::where('project', '=', $vendor)->sum('total');
+         //$vcb_spend = \App\Models\VcbAeroSpendModel::sum('total');
+         $total_spend =  $rmu_spend;
+         $total_arr['amt_spend']= $total_spend;
+
+         $other_payments = \App\Models\PaymentSummaryModel::where('project', '=', $vendor)->sum('pmt_amount');
+         $total_arr['other_spend']= $other_payments;
+
+         $other_all_sums = \App\Models\PaymentSummaryModel::where('project', '=', $vendor)
+        ->groupBy('pmt_type')
+        ->selectRaw('pmt_type, SUM(pmt_amount) as total_amount')
+        ->get();
+        $vendor=\Auth::user()->project;
+        $site_data['pe_rmu'] = \App\Models\RmuBudgetTNBModel::where('vendor_name', '=', $vendor)
+        ->with('RmuSpends')->get();
+
+        $paymentSummary = PaymentSummaryModel::where('project', '=', $vendor)->get();
+
+        return view('PaymentSummary.summary', ['datas' => $paymentSummary,'summary'=>$total_arr ,'others'=>$other_all_sums, 'site_data'=>$site_data]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

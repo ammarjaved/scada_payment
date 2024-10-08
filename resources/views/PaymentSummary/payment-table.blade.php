@@ -45,7 +45,7 @@
                                             <option value="store_rental">Store Rental</option>
                                             <option value="ARAZ">ARAZ</option>
                                             <option value="TRANDUCER">TRANDUCER</option>
-                                            <option value="consultation_fee">consultation_fee</option>
+                                            <option value="consultation_fee">Consultation_fee</option>
                                          <option value="others">Others</option>
                         </select>
                     </td>

@@ -37,20 +37,6 @@ class RmuPaymentDetailController extends Controller
     {
         $data = RmuPaymentDetailModel::with(['RmuSpendDetail'])->where('status', 'work done but not payed')->get();
 
-       
-
-       
-
-        // $debugInfo = $data->map(function ($item) {
-        //     return [
-        //         'id' => $item->id,
-        //         'rmu_id' => $item->rmu_id,
-        //         'has_rmu_spend_detail' => $item->relationLoaded('RmuSpendDetail'),
-        //         'rmu_spend_detail' => $item->RmuSpendDetail,
-        //     ];
-        // })->toArray();
-        
-        // dd($debugInfo);
 
 
         $budgetIds = $data->map(function ($item) {

@@ -127,7 +127,9 @@ Route::middleware('auth')->group(function () {
     Route::get('vcb-budget-tnb/create/{name}', [VcbBudgetTNBController::class, 'create'])->name('vcb-budget-tnb.create');
 
     Route::resource('payment-summary-details', PaymentSummaryController::class);
-    Route::post('/payment-summary-search', [FilterPaymentSummaryController::class, 'index'])->name('payment-summary-search');
+    Route::get('payment-summary-detail', [PaymentSummaryController::class, 'paymentSummary'])->name('payment-summary-detail');
+
+    Route::post('payment-summary-search', [FilterPaymentSummaryController::class, 'paymentSummary'])->name('payment-summary-search');
 
 
 

@@ -77,7 +77,7 @@
         <div class="container-  ">
             <div class="row mb-2" style="flex-wrap:nowrap">
                 <div class="col-sm-6">
-                    <!-- <h3>Project Summary</h3> -->
+                    <h3>Project Summary</h3>
                 </div>
                 <div class="col-sm-6 text-right">
                     <ol class="breadcrumb float-right">
@@ -95,71 +95,106 @@
             @include('components.messages')
 
 
+
             <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class=" d-flex justify-content-between">
-                            <h5> PROJECT PAYMENTS </h5>
-                        </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class=" d-flex justify-content-between">
+                                <h5> Project Summary </h5>
+                            </div>
 
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+
+                            <div class="text-end mb-4">
+
+                            </div>
+
+                            <div class="table-responsive">
+                                <table id="example3" class="table table-bordered  ">
+
+
+                                    <thead style="background-color: #E4E3E3 !important">
+                                        <tr>
+                                            <th>TOTAL BUDGET</th>
+                                            <th>TOTAL COST PE</th>
+                                            <th>TOTAL COST OTHER</th>
+                                            <th>TOTAL COST</th>
+                                            <th>TOTAL PROFIT( IF ANY)</th>
+                                            <th>TOTAL LOSS( IF ANY)</th>
+                                            <th>PROFIT/LOSS</th>
+
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                                        <tr>
+
+                                            <td class="align-middle">{{ $summary['amt_received'] }}</td>
+                                            <td class="align-middle">{{ $summary['amt_spend'] }}</td>
+                                            <td class="align-middle">{{ $summary['other_spend'] }}</td>
+                                            <td class="align-middle">{{ $summary['other_spend'] + $summary['amt_spend'] }}
+                                            </td>
+                                            @if ($summary['other_spend'] + $summary['amt_spend'] < $summary['amt_received'])
+                                                <td class="align-middle text-success text-center">
+                                                    {{ $summary['amt_received'] - ($summary['other_spend'] + $summary['amt_spend']) }}
+                                                </td>
+                                            @else
+                                                <td class="align-middle text-center">0</td>
+                                            @endif
+
+                                            @if ($summary['other_spend'] + $summary['amt_spend'] > $summary['amt_received'])
+                                                <td class="align-middle text-danger text-center">
+
+                                                    {{ $summary['other_spend'] + $summary['amt_spend'] - $summary['amt_received'] }}
+                                                </td>
+                                            @else
+                                                <td class="align-middle text-center">
+                                                    0
+                                                </td>
+                                            @endif
+
+                                            @php
+                                            $total = null; // Initialize the variable
+                                            try {
+                                                $spend = $summary['amt_spend'] + $summary['other_spend'];
+                                                // Ensure amt_received is not zero to prevent division by zero
+                                                if ($summary['amt_received'] > 0) {
+                                                    $total = (($summary['amt_received'] - $spend) / $summary['amt_received']) * 100;
+                                                }
+                                            } catch (\Throwable $th) {
+                                                $total = null; // Set $total to null in case of an exception
+                                            }
+                                        @endphp
+                                        
+                                        <td class="text-center {{ $total !== null && $total < 0 ? 'text-danger' : 'text-success' }}">
+                                            @if(!empty($total) || $total === 0)
+                                                {{ number_format($total, 2) }} %
+                                            @else
+                                                <span class="text-danger">No data to display</span>
+                                            @endif
+                                        </td>
+                                        
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
                     </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
 
 
-                        <div class="text-end mb-4">
 
-                        </div>
-
-                        <div class="table-responsive">
-                            <table id="site-data" class="table table-bordered  ">
-
-
-                                <thead style="background-color: #E4E3E3 !important">
-                                    <tr>
-                                            <th>Claim</th>
-                                            <th>Salary</th>
-                                            <th>Tools</th>
-                                            <th>Cable</th>
-                                            <th>RTU </th>
-                                            <th>Store Rental</th>
-                                            <th>ARAZ</th>
-                                            <th>TRANDUCER</th>
-                                            <th>Consultation Fee</th>
-                                            <th>Others</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                <tr>
-                @php
-                $paymentTypes = ['claim', 'salary', 'tools', 'cable', 'rtu_cable', 'store_rental', 'ARAZ', 'TRANDUCER', 'consultation_fee', 'others'];
-                $totals = collect($others)->pluck('total_amount', 'pmt_type')->toArray();
-                @endphp
-
-                @foreach ($paymentTypes as $type)
-                    <td class="align-middle">
-                        {{ $totals[$type] ?? '0' }}
-                    </td>
-                @endforeach
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
                 </div>
 
 
-
             </div>
-
-
-        </div>
-
 
             <div class="row">
                 <div class="col-12">
@@ -237,11 +272,193 @@
             </div>
         </div>
 
-        
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class=" d-flex justify-content-between">
+                            <h5> SITE DATA SUMMARY </h5>
+                        </div>
+
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+
+                        <div class="text-end mb-4">
+
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="site-data" class="table table-bordered  ">
+
+
+                                <thead style="background-color: #E4E3E3 !important">
+                                    <tr>
+                                        <th>PE NAME</th>
+                                        <th>VENDOR NAME</th>
+                                        <th>SWITCHGEAR</th>
+                                        <!-- <th>KKB</th>
+                                        <th>CFS</th>
+                                        <th>BO</th>
+                                        <th>PIW</th>
+                                        <th>CABLE</th>
+                                        <th>RTU</th>
+                                        <th>RTU CABLE</th>
+                                        <th>TOOLS</th>
+                                        <th>TRANSDUCER</th>
+                                        <th>STORE RENTAL</th>
+                                        <th>TRANSPORT</th>
+                                        <th>SALARY</th>
+                                        <th>BUDGET</th>
+                                        <th>FIX PROFIT</th>
+                                        <th>TOTAL SPEND</th>
+                                        <th>TOTAL PENDING</th>
+                                        <th>TOTAL OUTSTANDING</th>
+                                        <th>TOTAL PROFIT  </th>
+                                        <th>TOTAL LOSS </th> -->
+                                        <th>BO</th>
+                                        <th>PIW</th>
+                                        <th>OUTAGE</th>
+                                        <th>RTU</th>
+                                        <th>KKB</th>
+                                        <th>JOINTER</th>
+                                        <th>TESTER</th>
+                                        <th>TRANSPORT</th>
+                                        <th>TOTAL OUTSTANDING</th>
+                                        <th>TOTAL SPENDINGS</th>
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    @foreach ($site_data['pe_rmu'] as $rmu)
+                                    <tr>
+                                        <td class="align-middle">{{ $rmu->pe_name }}</td>
+                                        <td>{{$rmu->vendor_name}}</td>
+
+                                        <td class="align-middle">{{$rmu->switch}}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_bo_status )}}">{{ $rmu->RmuSpends->amt_bo }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_piw_status )}}">{{ $rmu->RmuSpends->amt_piw }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_outage_status )}}">{{ $rmu->RmuSpends->amt_outage }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_rtu_status )}}">{{ $rmu->RmuSpends->amt_rtu }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_kkb_status )}}">{{ $rmu->RmuSpends->amt_kkb }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_pk_status )}}">{{ $rmu->RmuSpends->amt_pk }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_ir_status )}}">{{ $rmu->RmuSpends->amt_ir }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_transport_status )}}">{{ $rmu->RmuSpends->amt_transport }}</td>
+                                        <td>{{$rmu->RmuSpends->outstanding_balance}}</td>
+                                        <td class="align-middle">{{ $rmu->RmuSpends->total }}</td>
+
+                                        {{-- <!-- <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_cfs_status )}}">{{ $rmu->RmuSpends->amt_cfs }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_cable_status )}}">{{ $rmu->RmuSpends->amt_cable }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_rtu_cable_status )}}">{{ $rmu->RmuSpends->amt_rtu_cable }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_tools_status )}}">{{ $rmu->RmuSpends->amt_tools }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_transducer_status )}}">{{ $rmu->RmuSpends->amt_transducer }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_store_rental_status )}}">{{ $rmu->RmuSpends->amt_store_rental }}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_salary_status )}}">{{ $rmu->RmuSpends->amt_salary }}</td>
+                                        <td class="align-middle">{{ $rmu->total }}</td>
+                                        <td>{{$rmu->fix_profit}}</td>
+                                        <td class="align-middle">{{ $rmu->RmuSpends->total }}</td>
+                                        <td>{{ $rmu->RmuSpends->pending_payment }}</td> -->
+                                       <!-- @php
+                                            try {
+                                                $rmu->fix_profit = $rmu->fix_profit == '' ? 1 : $rmu->fix_profit;
+                                             $profit  =  (($rmu->total - $rmu->RmuSpends->total) / $rmu->fix_profit) * 100;
+                                            } catch (\Throwable $th) {
+                                                //throw $th;
+                                            }
+                                              @endphp
+                                        <td class="align-middle text-center text-success"> {{ $profit > 0 ? number_format($profit,2) .' % ' : '' }} </td>
+                                        <td class="align-middle text-center text-danger"> {{ $profit < 0 ? number_format($profit,2) .' % ' : '' }} </td>
+                                     -->--}}
+                                    </tr>
+                                    @endforeach
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+        </div>
 
 
 
 
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class=" d-flex justify-content-between">
+                            <h5> PROJECT SUMMARY </h5>
+                        </div>
+
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+
+                        <div class="text-end mb-4">
+
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="site-data" class="table table-bordered  ">
+
+
+                                <thead style="background-color: #E4E3E3 !important">
+                                    <tr>
+                                            <th>Claim</th>
+                                            <th>Salary</th>
+                                            <th>Tools</th>
+                                            <th>Cable</th>
+                                            <th>RTU </th>
+                                            <th>Store Rental</th>
+                                            <th>ARAZ</th>
+                                            <th>TRANDUCER</th>
+                                            <th>consultation_fee</th>
+                                            <th>Others</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                @php
+                $paymentTypes = ['claim', 'salary', 'tools', 'cable', 'rtu_cable', 'store_rental', 'ARAZ', 'TRANDUCER', 'consultation_fee', 'others'];
+                $totals = collect($others)->pluck('total_amount', 'pmt_type')->toArray();
+                @endphp
+
+                @foreach ($paymentTypes as $type)
+                    <td class="align-middle">
+                        {{ $totals[$type] ?? '0' }}
+                    </td>
+                @endforeach
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+        </div>
 
 
     </section>
@@ -328,7 +545,7 @@
                         <div class="row">
                             <div class="col-md-4"><label for="status">Date Time</label></div>
                             <div class="col-md-8">
-                                <input type="date" name="date_time" id="date_time" class="form-control"
+                                <input type="datetime-local" name="date_time" id="date_time" class="form-control"
                                     required>
                             </div>
                         </div>
