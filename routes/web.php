@@ -109,7 +109,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/rmu-budget-tnb/budgets', [RmuBudgetTNBController::class, 'listBudgets'])->name('rmu-budget-tnb.budgets');
     
-    Route::resource('rmu-budget-tnb', RmuBudgetTNBController::class,['except' => ['index' , 'create']]);
+    Route::resource('rmu-budget-tnb', RmuBudgetTNBController::class,['except' => ['index' , 'create','update']]);
+
+    Route::post('rmu-budget-tnb.update/{id}', [RmuBudgetTNBController::class, 'update'])->name('rmu-budget-tnb.update');
+
 
     Route::get('rmu-budget-tnb/index/{id}', [RmuBudgetTNBController::class, 'index'])->name('rmu-budget-tnb.index');
     Route::get('rmu-budget-tnb/create/{name}', [RmuBudgetTNBController::class, 'create'])->name('rmu-budget-tnb.create');

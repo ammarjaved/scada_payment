@@ -19,13 +19,19 @@
             </div>
         </div>
 
+        @if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
+
     </section>
     <section class="content">
         <div class="container-fluid">
             <div class="container bg-white  shadow my-4 " style="border-radius: 10px">
 
 
-                <form action="{{ route('rmu-budget-tnb.store') }}" id="myForm" method="post">
+                <form action="{{ isset($item)? route('rmu-budget-tnb.update',$item->id) :route('rmu-budget-tnb.store') }}" id="myForm" method="post">
                     @csrf
 
 

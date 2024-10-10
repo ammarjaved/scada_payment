@@ -60,7 +60,12 @@
     </section>
     <section class="content">
         <div class="container-fluid">
-
+            
+    @if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+    @endif
 
 @include('components.messages')
 
@@ -131,11 +136,11 @@
                                                         <a class="dropdown-item"
                                                             href="{{ route('rmu-budget-tnb.show', $data->id) }}">Detail</a>
 
-                                                        <button type="button" class="btn btn-primary dropdown-item"
+                                                        <!-- <button type="button" class="btn btn-primary dropdown-item"
                                                             data-id="{{ $data->id }}" data-toggle="modal" data-url="rmu-budget-tnb"
                                                             data-target="#myModal">
                                                             Remove
-                                                        </button>
+                                                        </button> -->
                                                     </div>
 
                                                 </td>

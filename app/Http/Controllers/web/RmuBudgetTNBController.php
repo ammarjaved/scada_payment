@@ -166,8 +166,20 @@ class RmuBudgetTNBController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
+        try{
+            $rec = RmuBudgetTNBModel::find($id);
+            if ($rec) {
+                $rec->update($request->all());
+                return redirect()->route('rmu-budget-tnb.index', $rec->id)->with('status', 'Budget updated successful!');
+            } else {
+                return redirect()->route('rmu-budget-tnb.edit', $rec->id)->with('error', 'Budget update unsuccessful!');
+            }
+        }
+        catch (customException $e) {
+            return redirect()->route('rmu-budget-tnb.edit', $rec->id)->with('error', 'Budget update unsuccessful!');
+        }
     }
 
     /**

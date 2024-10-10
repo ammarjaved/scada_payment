@@ -202,7 +202,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class=" d-flex justify-content-between">
-                            <h5> PE-PAYMENTS-SUMMARY </h5>
+                            <h5> PE PAYMENTS-SUMMARY </h5>
                         </div>
 
                     </div>
@@ -221,9 +221,9 @@
                                 <thead style="background-color: #E4E3E3 !important">
                                     <tr>
                                         <th>PE NAME</th>
-                                        <th>VENDOR NAME</th>
+                                        <!-- <th>VENDOR NAME</th>
                                         <th>SWITCHGEAR</th>
-                                        <!-- <th>KKB</th>
+                                        <th>KKB</th>
                                         <th>CFS</th>
                                         <th>BO</th>
                                         <th>PIW</th>
@@ -252,6 +252,10 @@
                                         <th>TRANSPORT</th>
                                         <th>TOTAL OUTSTANDING</th>
                                         <th>TOTAL SPENDINGS</th>
+                                        <th>TOTAL BUDGET</th>
+                                        <th>TOTAL COAST</th>
+                                        <th>TOTAL PROFIT</th>
+                                        <th>TOTAL PROFIT PERCENTAGE</th>
 
 
 
@@ -265,8 +269,8 @@
                                         <td class="align-middle">{{ $rmu->pe_name }}</td>
                                         <td>{{$rmu->vendor_name}}</td>
 
-                                        <td class="align-middle">{{$rmu->switch}}</td>
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_bo_status )}}">{{ $rmu->RmuSpends->amt_bo }}</td>
+                                        <!-- <td class="align-middle">{{$rmu->switch}}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_bo_status )}}">{{ $rmu->RmuSpends->amt_bo }}</td> -->
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_piw_status )}}">{{ $rmu->RmuSpends->amt_piw }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_outage_status )}}">{{ $rmu->RmuSpends->amt_outage }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_rtu_status )}}">{{ $rmu->RmuSpends->amt_rtu }}</td>
@@ -275,7 +279,11 @@
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_ir_status )}}">{{ $rmu->RmuSpends->amt_ir }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_transport_status )}}">{{ $rmu->RmuSpends->amt_transport }}</td>
                                         <td>{{$rmu->RmuSpends->outstanding_balance}}</td>
-                                        <td class="align-middle">{{ $rmu->RmuSpends->total }}</td>
+                                        <td class="align-middle">{{ $rmu->RmuSpends->amt_received }}</td>
+                                        <td class="align-middle">{{ $rmu->RmuSpends->amt_received }}</td>
+                                        <td class="align-middle">{{ $rmu->RmuSpends->amt_received }}</td>
+                                        <td class="align-middle">{{ $rmu->RmuSpends->amt_received }}</td>
+                                        <td class="align-middle">{{ $rmu->RmuSpends->amt_received }}</td>
 
                                         {{-- <!-- <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_cfs_status )}}">{{ $rmu->RmuSpends->amt_cfs }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_cable_status )}}">{{ $rmu->RmuSpends->amt_cable }}</td>
@@ -325,7 +333,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class=" d-flex justify-content-between">
-                            <h5> PROJECT-PAYMENTS-SUMMARY </h5>
+                            <h5> PROJECT PAYMENTS-SUMMARY </h5>
                         </div>
 
                     </div>

@@ -302,17 +302,17 @@
                             <div class="col-md-4"><label for="total">Payment Type</label></div>
                             <div class="col-md-8">
                                 <select name="pmt_type" id="pmt_name" class="form-control" required>
-                                    <option value="" hidden>select</option>
-                                    <option value="claim">Claim</option>
-                                            <option value="salary">Salary</option>
-                                            <option value="tools">Tools</option>
-                                            <option value="cable">Cable</option>
-                                            <option value="rtu_cable">RTU Cable</option>
-                                            <option value="store_rental">Store Rental</option>
+                                    <option value="" hidden>Select</option>
+                                    <option value="claim">CLAIM</option>
+                                            <option value="salary">SALARY</option>
+                                            <option value="tools">TOOLS</option>
+                                            <option value="cable">CABLE</option>
+                                            <option value="rtu_cable">RTU CABLE</option>
+                                            <option value="store_rental">STORE RENTAL</option>
                                             <option value="ARAZ">ARAZ</option>
                                             <option value="TRANDUCER">TRANDUCER</option>
-                                            <option value="consultation_fee">consultation_fee</option>
-                                         <option value="others">Others</option>
+                                            <option value="consultation_fee">CONSULTATION FEE</option>
+                                         <option value="others">OTHERs</option>
                                 </select>
                             </div>
                         </div>
