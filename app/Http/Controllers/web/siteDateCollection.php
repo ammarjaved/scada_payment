@@ -59,9 +59,9 @@ class siteDateCollection extends Controller
                     $data->profit_percent = null;
                 }
             } else {
-                $data->budget = 'Not Available'; // or any default value you prefer
-                $data->aero_spend = 'Not Available';
-                $data->profit_percent = 'Not Available';
+                $data->budget = 0; // or any default value you prefer
+                $data->aero_spend =0;
+                $data->profit_percent = 0;
             }
             }
         
