@@ -266,10 +266,10 @@
                                     @foreach ($site_data['pe_rmu'] as $rmu)
                                     <tr>
                                         <td class="align-middle">{{ $rmu->pe_name }}</td>
-                                        <td>{{$rmu->vendor_name}}</td>
+                                        <!-- <td>{{$rmu->vendor_name}}</td> -->
 
-                                        <!-- <td class="align-middle">{{$rmu->switch}}</td>
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_bo_status )}}">{{ $rmu->RmuSpends->amt_bo }}</td> -->
+                                        <!-- <td class="align-middle">{{$rmu->switch}}</td>-->
+                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_bo_status )}}">{{ $rmu->RmuSpends->amt_bo }}</td> 
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_piw_status )}}">{{ $rmu->RmuSpends->amt_piw }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_outage_status )}}">{{ $rmu->RmuSpends->amt_outage }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_rtu_status )}}">{{ $rmu->RmuSpends->amt_rtu }}</td>

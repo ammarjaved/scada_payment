@@ -107,6 +107,7 @@ class RmuBudgetTNBController extends Controller
     public function store(Request $request)
     {
         try {
+            
             $vendor=\Auth::user()->project;
             $request['vendor_name']=$vendor;
             if ($request->id == '' && !RmuBudgetTNBModel::where('pe_name', $request->pe_name)->first()) {
