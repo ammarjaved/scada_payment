@@ -96,6 +96,8 @@ class PaymentSummaryController extends Controller
         $site_data['pe_rmu'] = \App\Models\RmuBudgetTNBModel::where('vendor_name', '=', $vendor)
         ->with('RmuSpends')->get();
 
+      //  return $site_data;
+
         $paymentSummary = PaymentSummaryModel::where('project', '=', $vendor)->get();
 
         return view('PaymentSummary.summary', ['datas' => $paymentSummary,'summary'=>$total_arr ,'others'=>$other_all_sums, 'site_data'=>$site_data]);

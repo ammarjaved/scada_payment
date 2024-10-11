@@ -251,9 +251,8 @@
                                         <th>TESTER</th>
                                         <th>TRANSPORT</th>
                                         <th>TOTAL OUTSTANDING</th>
-                                        <th>TOTAL SPENDINGS</th>
                                         <th>TOTAL BUDGET</th>
-                                        <th>TOTAL COAST</th>
+                                        <th>TOTAL COST</th>
                                         <th>TOTAL PROFIT</th>
                                         <th>TOTAL PROFIT PERCENTAGE</th>
 
@@ -279,11 +278,10 @@
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_ir_status )}}">{{ $rmu->RmuSpends->amt_ir }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_transport_status )}}">{{ $rmu->RmuSpends->amt_transport }}</td>
                                         <td>{{$rmu->RmuSpends->outstanding_balance}}</td>
-                                        <td class="align-middle">{{ $rmu->RmuSpends->amt_received }}</td>
-                                        <td class="align-middle">{{ $rmu->RmuSpends->amt_received }}</td>
-                                        <td class="align-middle">{{ $rmu->RmuSpends->amt_received }}</td>
-                                        <td class="align-middle">{{ $rmu->RmuSpends->amt_received }}</td>
-                                        <td class="align-middle">{{ $rmu->RmuSpends->amt_received }}</td>
+                                        <td class="align-middle">{{ $rmu->total }}</td>
+                                        <td class="align-middle">{{ $rmu->RmuSpends->total }}</td>
+                                        <td class="align-middle">{{$rmu->total- $rmu->RmuSpends->total }}</td>
+                                        <td class="align-middle">{{(($rmu->total- $rmu->RmuSpends->total)/$rmu->total)*100 }}%</td>
 
                                         {{-- <!-- <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_cfs_status )}}">{{ $rmu->RmuSpends->amt_cfs }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_cable_status )}}">{{ $rmu->RmuSpends->amt_cable }}</td>
