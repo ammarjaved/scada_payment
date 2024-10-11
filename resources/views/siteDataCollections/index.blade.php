@@ -93,7 +93,7 @@
                                                     <td class="align-middle">
                                                     {{ $data->profit_total ? $data->profit_total : '-' }}</td> 
                                                     <td class="align-middle">
-                                                    {{ $data->profit_percent ? number_format($data->profit_percent,2) : '-' }}</td>       
+                                                    {{ $data->profit_percent ? $data->profit_percent,2 : '-' }}</td>       
                                                    
                                                     <td class="align-middle text-center">
                                                         @if ( $data->nama_pe != '')
