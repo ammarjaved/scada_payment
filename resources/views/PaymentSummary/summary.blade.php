@@ -281,7 +281,7 @@
                                         <td class="align-middle">{{ $rmu->total }}</td>
                                         <td class="align-middle">{{ $rmu->RmuSpends->total }}</td>
                                         <td class="align-middle">{{$rmu->total- $rmu->RmuSpends->total }}</td>
-                                        <td class="align-middle">{{(($rmu->total- $rmu->RmuSpends->total)/$rmu->total)*100 }}%</td>
+                                        <td class="align-middle">{{number_format((($rmu->total- $rmu->RmuSpends->total)/$rmu->total)*100,2) }}%</td>
 
                                         {{-- <!-- <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_cfs_status )}}">{{ $rmu->RmuSpends->amt_cfs }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_cable_status )}}">{{ $rmu->RmuSpends->amt_cable }}</td>
