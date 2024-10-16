@@ -215,7 +215,7 @@
             });
 
             $("#example2").DataTable({
-                "lengthChange": false,
+                "lengthChange": true,
                 "autoWidth": false,
             })
         })
