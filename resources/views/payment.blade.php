@@ -77,7 +77,7 @@
                                             <td>{{ $payment->id }}</td>
                                             <td>{{ $payment->pe_name}}</td>
                                             <td>{{ $payment->pmt_name }}</td>
-                                            <td>{{ $payment->amount }}</td>
+                                            <td>{{ number_format($payment->amount) }}</td>
                                             <td>{{ $payment->pmt_date }}</td>
                                             <td>{{ $payment->vendor_name }}</td>
                                             <td>
@@ -170,7 +170,7 @@
                                             <td>{{ $payment->id }}</td>
                                             <td>{{ $payment->pe_name}}</td>
                                             <td>{{ $payment->pmt_name }}</td>
-                                            <td>{{ $payment->amount }}</td>
+                                            <td>{{ number_format($payment->amount) }}</td>
                                             <td>{{ $payment->pmt_date }}</td>
                                             <td>{{ $payment->vendor_name }}</td>
                                             <td>
@@ -232,6 +232,9 @@
         }
     });
 
+    function addCommas(number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
     function updateSum() {
         $('#payment-table1').find('tbody input[type="checkbox"]:checked').each(function() {
            
@@ -241,7 +244,7 @@
                    var cv=$("#verify_total").val();
                    var fv=parseFloat(cv)+parseFloat(value);
 
-                   $("#verify_total").val(fv);
+                   $("#verify_total").val(addCommas(fv));
             }
 
 
@@ -258,7 +261,7 @@
                    var cv=$("#pay_total").val();
                    var fv=parseFloat(cv)+parseFloat(value);
 
-                   $("#pay_total").val(fv);
+                   $("#pay_total").val(addCommas(fv));
             }
 
 

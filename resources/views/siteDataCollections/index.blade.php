@@ -86,12 +86,12 @@
                                                     {{ $data->jenis_perkakasuis ? $data->jenis_perkakasuis : '-' }}</td>
 
                                                     <td class="align-middle">
-                                                    {{ $data->budget ? $data->budget : '-' }}</td>
+                                                    {{ $data->budget ? number_format($data->budget,2) : '-' }}</td>
                                                     <td class="align-middle">
-                                                    {{ $data->aero_spend ? $data->aero_spend : '-' }}</td> 
+                                                    {{ $data->aero_spend ? number_format($data->aero_spend,2) : '-' }}</td> 
                                                     
                                                     <td class="align-middle">
-                                                    {{ $data->profit_total ? $data->profit_total : '-' }}</td> 
+                                                    {{ $data->profit_total ? number_format($data->profit_total,2) : '-' }}</td> 
                                                     <td class="align-middle">
                                                     {{ $data->profit_percent ? number_format($data->profit_percent,2) : '-' }}</td>       
                                                    

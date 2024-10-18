@@ -51,12 +51,12 @@
                                             <tr>
                                                 <td class="align-middle">{{ $data->nama_pe ?? '-' }}</td>
                                                 <td class="align-middle">{{ $data->jenis_perkakasuis ?? '-' }}</td>
-                                                <td class="align-middle">{{ $data->budget ?? '-' }}</td>
-                                                <td class="align-middle">{{ $data->aero_spend ?? '-' }}</td>
-                                                <td class="align-middle">{{ $data->profit_total ?? '-' }}</td>
-                                                <td class="align-middle">{{ $data->profit_percent ?? '-' }}</td>
+                                                <td class="align-middle">{{ number_format($data->budget,2) ?? '-' }}</td>
+                                                <td class="align-middle">{{ number_format($data->aero_spend,2) ?? '-' }}</td>
+                                                <td class="align-middle">{{ number_format($data->profit_total,2) ?? '-' }}</td>
+                                                <td class="align-middle">{{ number_format($data->profit_percent,2) ?? '-' }}</td>
                                                 <td class="align-middle text-center">
-                                                    @if (isset($data->budget) && $data->budget !== 'Not Available')
+                                                    @if (isset($data->budget) && $data->budget !== '0')
                                                         @php
                                                             // Find the corresponding RMU to get its ID
                                                             $matchingRmu = $rmus->firstWhere('pe_name', $data->nama_pe);

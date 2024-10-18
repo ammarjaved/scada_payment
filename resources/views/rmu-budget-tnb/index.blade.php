@@ -118,9 +118,9 @@
                                                 <td class="align-middle"> <button class="btn" onclick="showSpendDetails({{$data->id}})">{{ $data->pe_name}} </button> </td>
 
                                                 <td class="align-middle">{{ number_format($data->total,2) }}</td>
-                                                <td class="align-middle">{{ $data->spending_total }}</td>
-                                                <td class="align-middle">{{ $data->profit_total }}</td>
-                                                <td class="align-middle">{{ $data->profit_percent }}</td>
+                                                <td class="align-middle">{{ number_format($data->spending_total,2) }}</td>
+                                                <td class="align-middle">{{ number_format($data->profit_total,2) }}</td>
+                                                <td class="align-middle">{{ number_format($data->profit_percent,2) }}</td>
 
 
                                                 <td class="text-center">

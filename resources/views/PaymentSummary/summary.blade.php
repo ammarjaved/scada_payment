@@ -136,14 +136,14 @@
 
                                         <tr>
 
-                                            <td class="align-middle">{{ $summary['amt_received'] }}</td>
-                                            <td class="align-middle">{{ $summary['amt_spend'] }}</td>
-                                            <td class="align-middle">{{ $summary['other_spend'] }}</td>
-                                            <td class="align-middle">{{ $summary['other_spend'] + $summary['amt_spend'] }}
+                                            <td class="align-middle">{{ number_format($summary['amt_received'],2) }}</td>
+                                            <td class="align-middle">{{ number_format($summary['amt_spend'],2) }}</td>
+                                            <td class="align-middle">{{ number_format($summary['other_spend'],2) }}</td>
+                                            <td class="align-middle">{{ number_format($summary['other_spend'] + $summary['amt_spend'],2) }}
                                             </td>
                                             @if ($summary['other_spend'] + $summary['amt_spend'] < $summary['amt_received'])
                                                 <td class="align-middle text-success text-center">
-                                                    {{ $summary['amt_received'] - ($summary['other_spend'] + $summary['amt_spend']) }}
+                                                    {{ number_format($summary['amt_received'] - ($summary['other_spend'] + $summary['amt_spend']),2) }}
                                                 </td>
                                             @else
                                                 <td class="align-middle text-center">0</td>
@@ -152,7 +152,7 @@
                                             @if ($summary['other_spend'] + $summary['amt_spend'] > $summary['amt_received'])
                                                 <td class="align-middle text-danger text-center">
 
-                                                    {{ $summary['other_spend'] + $summary['amt_spend'] - $summary['amt_received'] }}
+                                                    {{ number_format($summary['other_spend'] + $summary['amt_spend'] - $summary['amt_received'],2) }}
                                                 </td>
                                             @else
                                                 <td class="align-middle text-center">
@@ -267,21 +267,22 @@
                                     <tr>
                                         <td class="align-middle">{{ $rmu->pe_name }}</td>
                                         <!-- <td>{{$rmu->vendor_name}}</td> -->
+                                        
 
                                         <!-- <td class="align-middle">{{$rmu->switch}}</td>-->
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_bo_status )}}">{{ $rmu->RmuSpends->amt_bo }}</td> 
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_piw_status )}}">{{ $rmu->RmuSpends->amt_piw }}</td>
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_outage_status )}}">{{ $rmu->RmuSpends->amt_outage }}</td>
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_rtu_status )}}">{{ $rmu->RmuSpends->amt_rtu }}</td>
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_kkb_status )}}">{{ $rmu->RmuSpends->amt_kkb }}</td>
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_pk_status )}}">{{ $rmu->RmuSpends->amt_pk }}</td>
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_ir_status )}}">{{ $rmu->RmuSpends->amt_ir }}</td>
-                                        <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_transport_status )}}">{{ $rmu->RmuSpends->amt_transport }}</td>
-                                        <td>{{$rmu->RmuSpends->outstanding_balance}}</td>
-                                        <td class="align-middle">{{ $rmu->total }}</td>
-                                        <td class="align-middle">{{ $rmu->RmuSpends->total }}</td>
-                                        <td class="align-middle">{{$rmu->total- $rmu->RmuSpends->total }}</td>
-                                        <td class="align-middle">{{number_format((($rmu->total- $rmu->RmuSpends->total)/$rmu->total)*100,2) }}%</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->rmu_spends->amt_bo_status ?? '' )}}">{{ isset($rmu->rmu_spends->amt_bo) ? number_format($rmu->rmu_spends->amt_bo,2) : ''}}</td> 
+                                        <td class="{{str_replace(' ', '_' , $rmu->rmu_spends->amt_piw_status ?? '')}}">{{ isset($rmu->rmu_spends->amt_piw) ? number_format($rmu->rmu_spends->amt_piw,2) : ''}}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->rmu_spends->amt_outage_status ?? '')}}">{{ isset($rmu->rmu_spends->amt_outage) ? number_format($rmu->rmu_spends->amt_outage,2) : ''}}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->rmu_spends->amt_rtu_status?? '' )}}">{{ isset($rmu->rmu_spends->amt_rtu) ? number_format($rmu->rmu_spends->amt_rtu,2) : ''}}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->rmu_spends->amt_kkb_status ?? '')}}">{{ isset($rmu->rmu_spends->amt_kkb) ? number_format($rmu->rmu_spends->amt_kkb,2) : ''}}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->rmu_spends->amt_pk_status ?? '')}}">{{ isset($rmu->rmu_spends->amt_pk) ? number_format($rmu->rmu_spends->amt_pk,2) : ''}}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->rmu_spends->amt_ir_status ?? '')}}">{{ isset($rmu->rmu_spends->amt_ir) ? number_format($rmu->rmu_spends->amt_ir,2) : ''}}</td>
+                                        <td class="{{str_replace(' ', '_' , $rmu->rmu_spends->amt_transport_status ?? '')}}">{{ isset($rmu->rmu_spends->amt_transport) ? number_format($rmu->rmu_spends->amt_transport,2) : ''}}</td>
+                                        <td>{{isset($rmu->rmu_spends->outstanding_balance) ? number_format($rmu->rmu_spends->outstanding_balance) : ''}}</td>
+                                        <td class="align-middle">{{ number_format($rmu->total,0) }}</td>
+                                        <td class="align-middle">{{isset($rmu->rmu_spends->total) ? number_format($rmu->rmu_spends->total,2) : '' }}</td>
+                                        <td class="align-middle">{{ number_format($rmu->total- ($rmu->rmu_spends->total ?? 0),2) }}</td>
+                                        <td class="align-middle">{{number_format((($rmu->total- ($rmu->rmu_spends->total ?? 0))/$rmu->total)*100,2) }}%</td>
 
                                         {{-- <!-- <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_cfs_status )}}">{{ $rmu->RmuSpends->amt_cfs }}</td>
                                         <td class="{{str_replace(' ', '_' , $rmu->RmuSpends->amt_cable_status )}}">{{ $rmu->RmuSpends->amt_cable }}</td>
@@ -372,7 +373,7 @@
 
                 @foreach ($paymentTypes as $type)
                     <td class="align-middle">
-                        {{ $totals[$type] ?? '0' }}
+                        {{ isset($totals[$type]) ? number_format($totals[$type]) : '0' }}
                     </td>
                 @endforeach
                                     </tr>

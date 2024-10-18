@@ -35,6 +35,18 @@ class RmuAeroSpendController extends Controller
             $data = (object)['profit' => '#error!'];
         }
 
+        $paymentData = collect(RmuPaymentDetailModel::where('rmu_id', $data->id)->get());
+        $result = $paymentData->where('status', 'work done but not payed')
+          ->pluck('pmt_name');
+
+
+        foreach ($result as $value) {
+            $property= $value.'_status';
+            $data->$property='work done but not payed';
+        }
+
+        //return $data;
+
         return view('rmu-aero-spend.index', compact('data'))->render();
     }
 

@@ -39,10 +39,10 @@ class RmuBudgetTNBController extends Controller
                     $data->profit_total = null;
                 }
             } else {
-                $data->budget = 'Not Available'; // or any default value you prefer
-                $data->aero_spend = 'Not Available';
-                $data->profit_percent = 'Not Available';
-                $data->profit_total = 'Not Available';
+                $data->budget = '0'; // or any default value you prefer
+                $data->aero_spend = '0';
+                $data->profit_percent = '0';
+                $data->profit_total = '0';
             }
         }
     
@@ -58,7 +58,6 @@ class RmuBudgetTNBController extends Controller
     public function index($id)
     {
         try {
-            //code...
 
             $data = RmuBudgetTNBModel::with(['RmuSpends'])
                 ->withCount('RmuSpends')
@@ -69,7 +68,16 @@ class RmuBudgetTNBController extends Controller
                $data->profit_total= ($data->total)-($data->RmuSpends->total);  
                $data->spending_total= $data->RmuSpends->total;  
 
-               
+        // $paymentData = collect(RmuPaymentDetailModel::where('rmu_id', $data->RmuSpends->id)->get());
+        // $result = $paymentData->where('status', 'work done but not payed')
+        //   ->pluck('pmt_name');
+
+
+        // foreach ($result as $value) {
+        //     $property= $value.'_status';
+        //     $data->RmuSpends->$property='work done but not payed';
+        // }
+
 
             if ($data) {
                 return view('rmu-budget-tnb.index', ['data' => $data]);

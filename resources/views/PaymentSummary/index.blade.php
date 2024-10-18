@@ -141,7 +141,7 @@
 
                 @foreach ($paymentTypes as $type)
                     <td class="align-middle">
-                        {{ $totals[$type] ?? '0' }}
+                        {{ isset($totals[$type]) ? number_format($totals[$type]) : '0' }}
                     </td>
                 @endforeach
                                     </tr>

@@ -42,17 +42,17 @@
 
                                             @if ($data != "" && $data != [])
 
-                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_bo_status )}}">{{$data->amt_bo ?? 0}}</td>
-                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_piw_status )}}">{{$data->amt_piw ?? 0  }}</td>
-                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_outage_status )}}">{{$data->amt_outage ?? 0  }}</td>
-                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_rtu_status )}}">{{$data->amt_rtu ?? 0  }}</td>
+                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_bo_status )}}">{{number_format($data->amt_bo,2) ?? 0}}</td>
+                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_piw_status )}}">{{number_format($data->amt_piw,2) ?? 0  }}</td>
+                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_outage_status )}}">{{number_format($data->amt_outage,2) ?? 0  }}</td>
+                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_rtu_status )}}">{{number_format($data->amt_rtu,2) ?? 0  }}</td>
 
-                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_kkb_status )}}">{{$data->amt_kkb ?? 0  }}</td>
-                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_pk_status )}}">{{$data->amt_pk ?? 0  }}</td>
-                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_ir_status )}}">{{$data->amt_ir   ?? 0 }}</td>
-                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_transport_status )}}">{{$data->amt_transport ?? 0 }}</td>
+                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_kkb_status )}}">{{number_format($data->amt_kkb,2) ?? 0  }}</td>
+                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_pk_status )}}">{{number_format($data->amt_pk,2) ?? 0  }}</td>
+                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_ir_status )}}">{{number_format($data->amt_ir,2)   ?? 0 }}</td>
+                                            <td class="text-center {{str_replace(' ', '_' , $data->amt_transport_status )}}">{{number_format($data->amt_transport,2) ?? 0 }}</td>
                                             <td class="text-center">{{ $data->outstanding_balance ?? 0}}</td>
-                                            <td class="text-center {{str_replace(' ', '_' , $data->total_status )}}">{{ $data->total ?? 0 }}</td>
+                                            <td class="text-center {{str_replace(' ', '_' , $data->total_status )}}">{{ number_format($data->total,2) ?? 0 }}</td>
                                             {{--<!-- <td class="text-center">{{ $data->profit}}</td> -->--}}
 
 

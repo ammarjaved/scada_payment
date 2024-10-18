@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PaymentSummaryModel;
 use App\Models\CsuBudgetTNBModel;
+use App\Models\RmuPaymentDetailModel;
+
 
 
 class PaymentSummaryController extends Controller
@@ -96,7 +98,25 @@ class PaymentSummaryController extends Controller
         $site_data['pe_rmu'] = \App\Models\RmuBudgetTNBModel::where('vendor_name', '=', $vendor)
         ->with('RmuSpends')->get();
 
-      //  return $site_data;
+    //   return $site_data->pe_rmu;
+
+
+    foreach($site_data['pe_rmu'] as $key => $val){
+        $val1 = json_decode($val);
+        
+        $paymentData = collect(RmuPaymentDetailModel::where('rmu_id', $val1->rmu_spends->id)->get());
+        $result = $paymentData->where('status', 'work done but not payed')
+            ->pluck('pmt_name');
+    
+        foreach ($result as $value) {
+            $property = $value.'_status';
+            $myrmuspends = json_decode(json_encode($site_data['pe_rmu'][$key]), true);
+            $myrmuspends['rmu_spends'][$property] = 'work done but not payed';
+            $site_data['pe_rmu'][$key] = json_decode(json_encode($myrmuspends));
+        }
+    }
+
+    
 
         $paymentSummary = PaymentSummaryModel::where('project', '=', $vendor)->get();
 
